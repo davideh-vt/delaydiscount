@@ -34,14 +34,14 @@ estimate.hyperbolic.model.params <- function(dd_data){
                     (sse_z + ssr_z_x)/(n*n_tp))
 
   vars = c(sigma_sq, g_hat)
-  names(vars) = c("sigma_sq", "g_hat")
+  names(vars) = c("sigma_sq", "g")
 
   # Get standard errors
   group_subj_comb = unique(data.frame(group = dd_data$group, subj = dd_data$subj))
   grp_ct = group_subj_comb %>%
     group_by(group) %>%
     summarise(count = n())
-  std_errs = sqrt((g+1)*sigma_sq/(grp_ct$count*n_tp))
+  std_errs = sqrt((g_hat+1)*sigma_sq/(grp_ct$count*n_tp))
   names(std_errs) = grp_ct$group
 
   # TODO: Consolidate ln_k_mean and std_errs into one dataframe
