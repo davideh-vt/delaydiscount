@@ -1,8 +1,8 @@
 dd_hyperbolic_model <- function(dd_data){
-  # TODO: Summary function
-  #output: all fixed effects
+  # TODO: The object returned by this function should have its own class maybe?
+  # TODO: Summary function or maybe override print method when I assign a class
+
   fixed_effects_var_ests = estimate.hyperbolic.model.params(dd_data)
-  #all pairwise contrasts
 
   # first, get all groups
   groups = levels(as.factor(dd_data$group))
@@ -13,6 +13,7 @@ dd_hyperbolic_model <- function(dd_data){
   p_value <- c()
   df1 <- c()
   df2 <- c()
+  # Do a pairwise f-test for all groups
   for(i in 1:(length(groups)-1)){
     for(j in (i+1):length(groups)){
       cond_1 <- c(cond_1, groups[i])
