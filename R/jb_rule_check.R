@@ -29,8 +29,8 @@ jb_rule_check <- function(dd_data){
 
   n_tp = length(unique(dd_data$delay))
   dd_data_1 <- dd_data %>%
-    select(group, subj, delay, indiff) %>%
-    arrange(group, subj)
+    dplyr::select(group, subj, delay, indiff) %>%
+    dplyr::arrange(group, subj)
   id_order = unique(dd_data_1[,id_vars])
   indiff_mat <- t(matrix(data = dd_data_1$indiff,
                          nrow = n_tp,

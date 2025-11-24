@@ -27,7 +27,7 @@ prepare_data_frame <- function(dd_data){
     dplyr::select(subj, group, delay, indiff)
 
   dd_data = dd_data %>%
-    arrange(group, subj, delay)
+    dplyr::arrange(group, subj, delay)
 
   # add transformations of variables
   dd_data$log_delay <- log(dd_data$delay)
@@ -39,10 +39,10 @@ prepare_data_frame <- function(dd_data){
   # calculate est ln_k by subj
   # make sure this works
   est_ln_k <- dd_data %>%
-    group_by(group, subj) %>%
-    summarise(lin_ln_k = mean(hyp_left))
+    dplyr::group_by(group, subj) %>%
+    dplyr::summarise(lin_ln_k = mean(hyp_left))
   dd_data = merge(dd_data, est_ln_k) %>%
-    arrange(group, subj, delay)
+    dplyr::arrange(group, subj, delay)
   # Calculate residuals
   dd_data$residual_hyperbolic <- dd_data$hyp_left - dd_data$lin_ln_k
 

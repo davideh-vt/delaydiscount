@@ -6,10 +6,8 @@
 #' with the variable ln_k containing that subject's estimated ln_k value.
 get_subj_est_ln_k <- function(dd_data){
   result <- dd_data %>%
-    group_by(group, subj)
-
-  result <- result %>%
-    summarise(ln_k = mean(hyp_left))
+    dplyr::group_by(group, subj) %>%
+    dplyr::summarise(ln_k = mean(hyp_left))
 
   return(result)
 }
