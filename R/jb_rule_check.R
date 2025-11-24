@@ -25,18 +25,12 @@ jb_rule_check <- function(dd_data){
   # Check to make sure that the dd_data_1 produced by this procedure is
   #  the same as that produced by the reshape function
 
-  # Check if the study variable is included in the dataset.
-  study_included = "study" %in% names(dd_data)
-
-  if(!study_included){
-    dd_data$study = 1
-  }
-  id_vars = which(names(dd_data) %in% c("study", "group", "subj"))
+  id_vars = which(names(dd_data) %in% c("group", "subj"))
 
   n_tp = length(unique(dd_data$delay))
   dd_data_1 <- dd_data %>%
-    select(study, group, subj, delay, indiff) %>%
-    arrange(study, group, subj)
+    select(group, subj, delay, indiff) %>%
+    arrange(group, subj)
   id_order = unique(dd_data_1[,id_vars])
   indiff_mat <- t(matrix(data = dd_data_1$indiff,
                          nrow = n_tp,
@@ -52,9 +46,5 @@ jb_rule_check <- function(dd_data){
   dd_data_1$C1 = C1
   dd_data_1$C2 = C2
 
-  if(!study_included){
-    dd_data_1 <- dd_data_1 %>%
-      select(group, subj, C1, C2)
-  }
   return(dd_data_1)
 }
