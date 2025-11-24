@@ -1,5 +1,22 @@
+#' Estimate the hyperparameters for each group, as well as the variance
+#' components of the model, using maximum likelihood estimation.
+#'
+#' #' This function is a helper function for dd_hyperbolic_model.
+#' We recommend not using this function on its own.
+#'
+#' @param dd_data A specially formatted data frame as returned by the
+#' prepare_data_frame function.
+#' @returns A list of two objects
+#' ln_k_mean is a data frame with estimates of the hyperparameters of each group
+#' along with the standard error of the estimate. The hyperparameter for each
+#' group can be interpreted as the mean ln(k) for a subject in that group.
+#' vars is a vector with entries sigma_sq and g
+#'  sigma_sq is the variance of the observed transformed indifference
+#'  conditioned on the true ln(k) for the subject
+#'  g is related to the variance of the subject random effect, which is equal to
+#'  g*sigma_sq/T, where T is the number of time points.
+
 # First, make a function that can estimate model parameters
-# TODO: Come up with a way of estimating standard error for the group ln(k) mean hyperparameters
 estimate.hyperbolic.model.params <- function(dd_data){
   # Setup input to get it into predictable format
   #dd_data = prepare_data_frame(dd_data)
