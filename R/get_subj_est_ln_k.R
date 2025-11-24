@@ -1,5 +1,9 @@
 #' Return ln(k) estimates for each subject
 #'
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @importFrom magrittr %>%
+#'
 #' @param dd_data A specially formatted data frame as returned by the
 #' prepare_data_frame function.
 #' @returns  A data frame consisting of one observation per subject within group

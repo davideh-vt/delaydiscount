@@ -4,6 +4,11 @@
 #' #' This function is a helper function for dd_hyperbolic_model.
 #' We recommend not using this function on its own.
 #'
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @importFrom magrittr %>%
+
+#'
 #' @param dd_data A specially formatted data frame as returned by the
 #' prepare_data_frame function.
 #' @returns A list of two objects

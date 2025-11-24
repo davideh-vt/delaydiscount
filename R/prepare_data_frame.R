@@ -8,6 +8,12 @@
 #' Estimating ln(k) for each subject.
 #' Calculating residuals from observed values vs predictions by estimated ln(k)
 #'
+#' @importFrom dplyr select
+#' @importFrom dplyr arrange
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @importFrom magrittr %>%
+#'
 #' @param dd_data A data frame containing discounting data in long format.
 #' (describe preconditions for the input?)
 #' The data should be in long format, with columns identifying the subject,

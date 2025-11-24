@@ -15,6 +15,10 @@
 #' All delays should be positive.
 #' All subjects should have observations for the exact same set of delays.
 #'
+#' @importFrom dplyr select
+#' @importFrom dplyr arrange
+#' @importFrom magrittr %>%
+#'
 #' @returns A data frame consisting of one observation per subject within group
 #' with the boolean variables C1 and C2 which are TRUE if the corresponding rule
 #' was passed and FALSE if it was not.
@@ -31,6 +35,7 @@ jb_rule_check <- function(dd_data){
   dd_data_1 <- dd_data %>%
     dplyr::select(group, subj, delay, indiff) %>%
     dplyr::arrange(group, subj)
+  # TODO: Should this be arranged by delay as well?
   id_order = unique(dd_data_1[,id_vars])
   indiff_mat <- t(matrix(data = dd_data_1$indiff,
                          nrow = n_tp,
