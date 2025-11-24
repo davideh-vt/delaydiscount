@@ -1,9 +1,10 @@
 Package: delaydiscount
-Title: What the Package Does (One Line, Title Case)
+Title: Fit Linearized Hyperbolic Model for Delay Discounting Curves
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("David", "Hinds", , "davideh@vt.edu", role = c("aut", "cre"))
+Description: Functions for estimating parameters and hyperparameters of the
+  linearized hyperbolic model, and testing equality of hyperparameters.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
