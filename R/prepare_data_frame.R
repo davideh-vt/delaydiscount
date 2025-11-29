@@ -26,7 +26,8 @@
 #' @returns A data frame compatible with the other functions in this package.
 #'
 prepare_data_frame <- function(dd_data){
-  # TODO: Check that input passes preconditions
+  # Check that input passes preconditions
+  check_input_preconditions(dd_data)
 
   # first, make sure that it does not have extra variables
   dd_data <- dd_data %>%

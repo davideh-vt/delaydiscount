@@ -24,10 +24,11 @@
 #' was passed and FALSE if it was not.
 #'
 jb_rule_check <- function(dd_data){
-  # This function depends on dplyr. Is this reasonable?
-
   # Check to make sure that the dd_data_1 produced by this procedure is
   #  the same as that produced by the reshape function
+
+  # Check that input passes preconditions
+  check_input_preconditions(dd_data)
 
   id_vars = which(names(dd_data) %in% c("group", "subj"))
 
