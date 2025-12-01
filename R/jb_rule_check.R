@@ -30,13 +30,13 @@ jb_rule_check <- function(dd_data){
   # Check that input passes preconditions
   check_input_preconditions(dd_data)
 
-  id_vars = which(names(dd_data) %in% c("group", "subj"))
-
   n_tp = length(unique(dd_data$delay))
   dd_data_1 <- dd_data %>%
     dplyr::select(group, subj, delay, indiff) %>%
-    dplyr::arrange(group, subj)
+    dplyr::arrange(group, subj, delay)
   # TODO: Should this be arranged by delay as well?
+
+  id_vars = which(names(dd_data_1) %in% c("group", "subj"))
   id_order = unique(dd_data_1[,id_vars])
   indiff_mat <- t(matrix(data = dd_data_1$indiff,
                          nrow = n_tp,
