@@ -32,9 +32,8 @@ jb_rule_check <- function(dd_data){
 
   n_tp = length(unique(dd_data$delay))
   dd_data_1 <- dd_data %>%
-    dplyr::select(group, subj, delay, indiff) %>%
-    dplyr::arrange(group, subj, delay)
-  # TODO: Should this be arranged by delay as well?
+    select(group, subj, delay, indiff) %>%
+    arrange(group, subj, delay)
 
   id_vars = which(names(dd_data_1) %in% c("group", "subj"))
   id_order = unique(dd_data_1[,id_vars])

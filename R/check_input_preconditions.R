@@ -48,4 +48,7 @@ check_input_preconditions <- function(dd_data){
   if(sum(dd_data$indiff <= 0) + sum(dd_data$indiff >= 1) > 0){
     stop("All indifference points must be between 0 and 1, exclusive.")
   }
+
+  # TODO: Check if subjects are unique between groups
+  #  Issue a warning
 }
