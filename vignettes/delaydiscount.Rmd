@@ -1,0 +1,169 @@
+---
+title: "delaydiscount"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{delaydiscount}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(delaydiscount)
+```
+
+The delaydiscount is intended to be used to analyze delay discounting data using
+the linearized hyperbolic model. To analyze discounting data with this package,
+you should first get your data in the format expected by the package.
+
+Our package expects to take data in long format, meaning that for each subject 
+within group, for each delay, the measurement of the indifference point 
+constitutes one observation in the data frame. It expects the data frame to contain
+variables named 
+ - group: Intervention identifier.
+ - subj: Subject identifier.
+ - delay: The length of time for which the indifference point is measured.
+ This must be a positive value.
+ - indiff: A value between 0 and 1 (exclusive) expressing the proportion of a
+ maximum reward the subject would need to receive to not favor waiting the delay
+ to receive the maximum reward.
+
+For each subject within group, the indifference point is expected to be measured for the same set of delays, exactly once for each delay.
+
+(Should I explain what I mean by subject-within-group? Maybe I should talk to
+Marco about how to communicate this idea more clearly.)
+
+Samples are assumed to be independent between different groups. If a subject is in multiple groups, this assumption would be violated. The code will still run, but the analysis may not be valid.
+
+(TODO: Maybe the code should warn the user when this happens.)
+
+(Have Marco read over the vignette to fact check.)
+
+We include the remedi dataset in our package as an example of a properly formatted dataset.
+
+```{r}
+head(remedi, n = 10L)
+```
+
+Once your delay discounting data is in the expected format, the next step is to 
+run our prepare_data_frame function on the dataset, which performs helper 
+calculations for our other functions.
+
+```{r}
+prep_remedi <- prepare_data_frame(remedi)
+```
+
+
+(Maybe take out the rule check)
+
+(Or discuss our arguments against using the rule check)
+
+(Solution: split this into a different section or vignette.)
+Marco suggests that I repeat the rest of the workflow in the rule check vignette
+
+Should you wish, you can also apply the rule check
+
+(TODO: Describe the rule check)
+
+```{r}
+# The jb_rule_check function is compatible with either the prepared or
+#  unprepared version of the remedi dataset
+remedi_rc_result <- jb_rule_check(remedi)
+head(remedi_rc_result)
+```
+
+(Describe the output of the rule check)
+
+The jb_rule_check function outputs a data frame with one entry per subject within group
+with variables identifying the subject-within-group, and boolean variables describing
+whether or not each rule was passed.
+
+(Describe the purpose of these next steps)
+
+```{r}
+prep_remedi_w_rc <- merge(prep_remedi, remedi_rc_result)
+
+prep_remedi_pass_rc <- prep_remedi_w_rc %>%
+  filter(C1 == 1, C2 == 1)
+```
+
+Both the prep_remedi data frame and the prep_remedi_pass_rc data frames will be
+compatible with the other functions contained within this package. The former would
+be appropriate to use if you do not wish to filter subjects that do not pass the
+rule check out of the analysis; the latter would be appropriate if you do.
+
+Using the prepared data frame, you can get estimates of the log(k) values for
+each subject using the get_subj_est_ln_k function
+
+```{r}
+ln_k_ests <- get_subj_est_ln_k(prep_remedi)
+head(ln_k_ests)
+```
+
+Our model treats the log(k) values for individual subjects as the result of a combination
+of a fixed group effect and a random subject effect. To get the fit of the linearized
+hyperbolic model, use the dd_hyperbolic_model function.
+
+```{r}
+model_fit <- dd_hyperbolic_model(prep_remedi)
+```
+
+The object produced by this method contains several attributes.
+
+The group mean log(k) estimates can be gotten from the ln_k_mean attribute
+
+```{r}
+model_fit$ln_k_mean
+
+# TODO: Should std_err be rescaled? Find the distribution of (est - true)/std_err
+# Reason is parameter estimates are based on MLE which is biased
+```
+
+(Discuss interpretation of these values)
+
+The variance component estimates can be obtained from the var attribute
+
+```{r}
+model_fit$var
+```
+
+(Discuss interpretation, especially of g)
+
+sigma_sq is the estimate of the variance of the transformed indifference value
+conditional on the subject effect.
+
+(need to discuss the transformation for the linearized model somewhere)
+
+g is related to the variance of the subject random effects: specifically, the
+variance of the subject random effect is equal to g * sigma_sq * 1/n_tp, where 
+n_tp is the number of time points observed for each subject.
+
+(Is g an unintuitive parameterization? Are we better off returning something else?)
+
+These mean and variance parameters are all estimated through maximum likelihood 
+estimation.
+
+Pairwise F-tests for equality of group mean parameters can be obtained from the
+pairwise_f_tests attribute. The data frame contains an F-test for each pair.
+
+```{r}
+model_fit$pairwise_f_tests
+```
+
+(More explanation; maybe a warning about multiplicity)
+
+
+An overall F-test for the equality of all group mean parameters can be found in
+the model_test attribute.
+
+```{r}
+model_fit$model_test
+
+```
+(More explanation.)
