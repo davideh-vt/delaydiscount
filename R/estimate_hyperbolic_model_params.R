@@ -7,6 +7,8 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
 #' @importFrom magrittr %>%
+#'
+#' @export
 
 #'
 #' @param dd_data A specially formatted data frame as returned by the

@@ -15,6 +15,8 @@
 #'  conditioned on the true ln(k) for the subject
 #'  g is related to the variance of the subject random effect, which is equal to
 #'  g*sigma_sq/T, where T is the number of time points.
+#'
+#' @export
 
 
 dd_hyperbolic_model <- function(dd_data){

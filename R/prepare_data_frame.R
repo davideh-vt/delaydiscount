@@ -25,6 +25,7 @@
 #'
 #' @returns A data frame compatible with the other functions in this package.
 #'
+#' @export
 prepare_data_frame <- function(dd_data){
   # Check that input passes preconditions
   check_input_preconditions(dd_data)

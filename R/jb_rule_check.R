@@ -23,6 +23,7 @@
 #' with the boolean variables C1 and C2 which are TRUE if the corresponding rule
 #' was passed and FALSE if it was not.
 #'
+#' @export
 jb_rule_check <- function(dd_data){
   # Check to make sure that the dd_data_1 produced by this procedure is
   #  the same as that produced by the reshape function

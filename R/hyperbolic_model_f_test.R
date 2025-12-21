@@ -14,6 +14,7 @@
 #' df1, the numerator degrees of freedom of the F-test (dimensionality of H0)
 #' df2, the denominator degrees of freedom of the F-test
 #'
+#' @export
 
 # Maybe hide this function and make a simpler function that publicly faces the user
 #  That function would cover more practical cases but call this function.

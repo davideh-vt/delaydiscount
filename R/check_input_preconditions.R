@@ -13,6 +13,8 @@
 #' @param dd_data A data frame containing discounting data in long format.
 #' This function is designed to fail if the preconditions for the discounting
 #' data data frame are not met.
+#'
+#' @export
 
 
 check_input_preconditions <- function(dd_data){
