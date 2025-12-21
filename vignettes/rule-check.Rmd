@@ -39,4 +39,4 @@ remedi_rc_pass <- remedi_with_rc %>%
   dplyr::filter(C1 == TRUE, C2 == TRUE)
 ```
 
-After that, the remainder of the workflow proceeds as 
+After that, the remainder of the workflow proceeds as it would otherwise.
