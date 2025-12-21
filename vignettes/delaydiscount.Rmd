@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(delaydiscount)
+#devtools::load_all()
 ```
 
 The delaydiscount is intended to be used to analyze delay discounting data using
@@ -36,12 +37,7 @@ variables named
 
 For each subject within group, the indifference point is expected to be measured for the same set of delays, exactly once for each delay.
 
-(Should I explain what I mean by subject-within-group? Maybe I should talk to
-Marco about how to communicate this idea more clearly.)
-
-Samples are assumed to be independent between different groups. If a subject is in multiple groups, this assumption would be violated. The code will still run, but the analysis may not be valid.
-
-(TODO: Maybe the code should warn the user when this happens.)
+Samples are assumed to be independent between different groups. If a subject is in multiple groups, this assumption would be violated. The code will still run, but the analysis may not be valid. The analysis performed by this package would treat a subject in multiple groups as though the observations for that subject in different groups had come from different subjects.
 
 (Have Marco read over the vignette to fact check.)
 
@@ -52,51 +48,27 @@ head(remedi, n = 10L)
 ```
 
 Once your delay discounting data is in the expected format, the next step is to 
-run our prepare_data_frame function on the dataset, which performs helper 
+run the prepare_data_frame function on the dataset, which performs helper 
 calculations for our other functions.
 
 ```{r}
 prep_remedi <- prepare_data_frame(remedi)
 ```
 
+One of the things that the prepare_data_frame function does is transform the delay
+and indifference variables to linearize the model.
 
-(Maybe take out the rule check)
+Note that the hyperbolic model for the discounting curve is $D(t) = \frac{1}{1+kt}$
 
-(Or discuss our arguments against using the rule check)
+Then we will have $\log(\frac{1}{D(t)} - 1) = \log(k) + \log(t)$
 
-(Solution: split this into a different section or vignette.)
-Marco suggests that I repeat the rest of the workflow in the rule check vignette
+Our model assumes that the transformed observed indifference point will follow the model
 
-Should you wish, you can also apply the rule check
+$\log(\frac{1}{\tilde D(t_{ijc})} - 1) = \log(k_{ic}) + \log(t_{ijc}) + \epsilon$
 
-(TODO: Describe the rule check)
+Where $\epsilon \tilde N(0, \sigma^2)$, $i$ is an index for subject, $j$ an index for time point, and $c$ is an index for group.
 
-```{r}
-# The jb_rule_check function is compatible with either the prepared or
-#  unprepared version of the remedi dataset
-remedi_rc_result <- jb_rule_check(remedi)
-head(remedi_rc_result)
-```
-
-(Describe the output of the rule check)
-
-The jb_rule_check function outputs a data frame with one entry per subject within group
-with variables identifying the subject-within-group, and boolean variables describing
-whether or not each rule was passed.
-
-(Describe the purpose of these next steps)
-
-```{r}
-prep_remedi_w_rc <- merge(prep_remedi, remedi_rc_result)
-
-prep_remedi_pass_rc <- prep_remedi_w_rc %>%
-  filter(C1 == 1, C2 == 1)
-```
-
-Both the prep_remedi data frame and the prep_remedi_pass_rc data frames will be
-compatible with the other functions contained within this package. The former would
-be appropriate to use if you do not wish to filter subjects that do not pass the
-rule check out of the analysis; the latter would be appropriate if you do.
+(TODO: Background citation for the linearized model.)
 
 Using the prepared data frame, you can get estimates of the log(k) values for
 each subject using the get_subj_est_ln_k function
@@ -120,9 +92,6 @@ The group mean log(k) estimates can be gotten from the ln_k_mean attribute
 
 ```{r}
 model_fit$ln_k_mean
-
-# TODO: Should std_err be rescaled? Find the distribution of (est - true)/std_err
-# Reason is parameter estimates are based on MLE which is biased
 ```
 
 (Discuss interpretation of these values)
@@ -133,20 +102,16 @@ The variance component estimates can be obtained from the var attribute
 model_fit$var
 ```
 
-(Discuss interpretation, especially of g)
-
 sigma_sq is the estimate of the variance of the transformed indifference value
 conditional on the subject effect.
 
 (need to discuss the transformation for the linearized model somewhere)
 
 g is related to the variance of the subject random effects: specifically, the
-variance of the subject random effect is equal to g * sigma_sq * 1/n_tp, where 
-n_tp is the number of time points observed for each subject.
+variance of the subject random effect is equal to $\frac{g\sigma^2}{T}$, where 
+$T$ is the number of time points observed for each subject.
 
-(Is g an unintuitive parameterization? Are we better off returning something else?)
-
-These mean and variance parameters are all estimated through maximum likelihood 
+These mean and variance parameters are estimated through maximum likelihood 
 estimation.
 
 Pairwise F-tests for equality of group mean parameters can be obtained from the
@@ -156,8 +121,7 @@ pairwise_f_tests attribute. The data frame contains an F-test for each pair.
 model_fit$pairwise_f_tests
 ```
 
-(More explanation; maybe a warning about multiplicity)
-
+Do note that these p-values are not adjusted for multiplicity. When conducting multiple hypothesis tests, the probability of at least one being significant will be larger than the nominal alpha required for significance.
 
 An overall F-test for the equality of all group mean parameters can be found in
 the model_test attribute.
@@ -166,4 +130,3 @@ the model_test attribute.
 model_fit$model_test
 
 ```
-(More explanation.)
