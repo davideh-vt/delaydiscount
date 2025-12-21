@@ -18,7 +18,7 @@
 # Maybe hide this function and make a simpler function that publicly faces the user
 #  That function would cover more practical cases but call this function.
 # The R Package function that the user is encouraged to use should probably not be this flexible.
-hyperbolic.model.f.test <- function(dd_data, hypothesis){
+hyperbolic_model_f_test <- function(dd_data, hypothesis){
   # Add a check to make sure that a group does not appear in more than one vector
   red_groups = dd_data$group
   for(eq in hypothesis){

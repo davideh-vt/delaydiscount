@@ -22,7 +22,13 @@ dd_hyperbolic_model <- function(dd_data){
   # TODO: The object returned by this function should have its own class maybe?
   # TODO: Summary function or maybe override print method when I assign a class
 
-  fixed_effects_var_ests = estimate.hyperbolic.model.params(dd_data)
+  # Check that the function is being called on prepared output
+  if(length(which(unique(names(dd_data)) %in% c("subj", "group", "delay", "indiff", "log_delay", "indiff_transform",
+                                                "hyp_left", "lin_ln_k", "residual_hyperbolic"))) < 9){
+    stop("The input data frame should be output from the prepare_data_frame function. Extra variables may be added to the output, but preexisting variables must not be deleted, modified, or renamed.")
+  }
+
+  fixed_effects_var_ests = estimate_hyperbolic_model_params(dd_data)
 
   # first, get all groups
   groups = levels(as.factor(dd_data$group))
@@ -40,7 +46,7 @@ dd_hyperbolic_model <- function(dd_data){
       cond_2 <- c(cond_2, groups[j])
 
       hyp = list(groups[c(i,j)])
-      f_test = hyperbolic.model.f.test(dd_data, hyp)
+      f_test = hyperbolic_model_f_test(dd_data, hyp)
 
       F_stat = c(F_stat, f_test$F_stat)
       p_value = c(p_value, f_test$p_value)
@@ -52,7 +58,7 @@ dd_hyperbolic_model <- function(dd_data){
   pairwise_f_tests <- data.frame(cond_1, cond_2, F_stat, p_value, df1, df2)
 
   #basic anova (all equal to each other)
-  f_test = hyperbolic.model.f.test(dd_data, list(groups))
+  f_test = hyperbolic_model_f_test(dd_data, list(groups))
 
   result = fixed_effects_var_ests
 

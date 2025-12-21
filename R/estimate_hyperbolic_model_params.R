@@ -30,7 +30,7 @@
 #'  which have the same meaning as in the pairwise_f_tests data frame.
 
 # First, make a function that can estimate model parameters
-estimate.hyperbolic.model.params <- function(dd_data){
+estimate_hyperbolic_model_params <- function(dd_data){
   # Setup input to get it into predictable format
   #dd_data = prepare_data_frame(dd_data)
   # Get the groups
