@@ -37,10 +37,6 @@ In order to make use of the rule check results, after the data frame is prepared
 remedi_with_rc <- merge(remedi, remedi_rc_result)
 remedi_rc_pass <- dplyr::filter(remedi_with_rc, 
                                 C1 == TRUE, C2 == TRUE)
-
-# Would prefer to write as 
-# remedi_rc_pass <- remedi_with_rc %>%
-#                   dplyr::filter(C1 == TRUE, C2 == TRUE)
 ```
 
 After that, the remainder of the workflow proceeds as it would otherwise.

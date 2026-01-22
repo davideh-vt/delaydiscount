@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(delaydiscount)
-#devtools::load_all()
 ```
 
 The delaydiscount is intended to be used to analyze delay discounting data using
@@ -62,13 +61,13 @@ Note that the hyperbolic model for the discounting curve is $D(t) = \frac{1}{1+k
 
 Then we will have $\log(\frac{1}{D(t)} - 1) = \log(k) + \log(t)$
 
-Our model assumes that the transformed observed indifference point will follow the model
+Our model assumes that the transformed observed indifference point $\tilde D(t_{ijc})$ will follow the distribution
 
 $\log(\frac{1}{\tilde D(t_{ijc})} - 1) = \log(k_{ic}) + \log(t_{ijc}) + \epsilon$
 
-Where $\epsilon \tilde N(0, \sigma^2)$, $i$ is an index for subject, $j$ an index for time point, and $c$ is an index for group.
+Where $\epsilon \sim N(0, \sigma^2)$, $i$ is an index for subject, $j$ an index for time point, and $c$ is an index for group.
 
-(TODO: Background citation for the linearized model.)
+(TODO: Background citation for the linearized model, Mazur)
 
 Using the prepared data frame, you can get estimates of the log(k) values for
 each subject using the get_subj_est_ln_k function
@@ -78,7 +77,7 @@ ln_k_ests <- get_subj_est_ln_k(prep_remedi)
 head(ln_k_ests)
 ```
 
-Our model treats the log(k) values for individual subjects as the result of a combination
+Our model treats the $\log(k)$ values for individual subjects as the result of a combination
 of a fixed group effect and a random subject effect. To get the fit of the linearized
 hyperbolic model, use the dd_hyperbolic_model function.
 
@@ -88,13 +87,13 @@ model_fit <- dd_hyperbolic_model(prep_remedi)
 
 The object produced by this method contains several attributes.
 
-The group mean log(k) estimates can be gotten from the ln_k_mean attribute
+The group mean $\log(k)$ estimates can be gotten from the ln_k_mean attribute
 
 ```{r}
 model_fit$ln_k_mean
 ```
 
-(Discuss interpretation of these values)
+These are estimates of the mean of the distribution from which the $\log(k_{ic})$ values for subjects in group $c$ have been realized.
 
 The variance component estimates can be obtained from the var attribute
 
@@ -104,8 +103,6 @@ model_fit$var
 
 sigma_sq is the estimate of the variance of the transformed indifference value
 conditional on the subject effect.
-
-(need to discuss the transformation for the linearized model somewhere)
 
 g is related to the variance of the subject random effects: specifically, the
 variance of the subject random effect is equal to $\frac{g\sigma^2}{T}$, where 
@@ -128,5 +125,6 @@ the model_test attribute.
 
 ```{r}
 model_fit$model_test
-
 ```
+
+Note that this test being significant does not necessarily indicate which group means differ from each other.
