@@ -5,7 +5,7 @@ Authors@R:
     person("David", "Hinds", , "davideh@vt.edu", role = c("aut", "cre"))
 Description: Functions for estimating parameters and hyperparameters of the
   linearized hyperbolic model, and testing equality of hyperparameters.
-License: `use_gpl3_license()`
+License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
