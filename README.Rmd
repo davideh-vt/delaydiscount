@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# delaydiscount
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of delaydiscount is to ...
+
+## Installation
+
+You can install the development version of delaydiscount from Gitlab at https://code.vt.edu/davideh/delaydiscount
+
+
+
+``` {r}
+# TODO: Get this to work
+# install.packages("devtools") # This should remain commented out
+# devtools::install_git("https://code.vt.edu/davideh/delaydiscount")
+```
+
+## Example
+
+To fit a model on a dataset of delay discounting data, first run `prepare_data_frame` on the dataset, then run `dd_hyperbolic_model` on the output.
+
+```{r example}
+library(delaydiscount)
+## basic example of fitting a model
+prep_remedi <- prepare_data_frame(remedi)
+fit <- dd_hyperbolic_model(prep_remedi)
+fit$ln_k_mean
+fit$var
+```
