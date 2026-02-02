@@ -22,14 +22,11 @@ The goal of delaydiscount is to ...
 
 ## Installation
 
-You can install the development version of delaydiscount from Gitlab at https://code.vt.edu/davideh/delaydiscount
-
-
+You can install the development version of delaydiscount from Github.
 
 ``` {r}
-# TODO: Get this to work
-# install.packages("devtools") # This should remain commented out
-# devtools::install_git("https://code.vt.edu/davideh/delaydiscount")
+# install.packages("devtools")
+devtools::install_git("https://github.com/davideh-vt/delaydiscount")
 ```
 
 ## Example

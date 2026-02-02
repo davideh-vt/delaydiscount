@@ -10,13 +10,13 @@ The goal of delaydiscount is to …
 
 ## Installation
 
-You can install the development version of delaydiscount from Gitlab at
-<https://code.vt.edu/davideh/delaydiscount>
+You can install the development version of delaydiscount from Github.
 
 ``` r
-# TODO: Get this to work
-# install.packages("devtools") # This should remain commented out
-# devtools::install_git("https://code.vt.edu/davideh/delaydiscount")
+# install.packages("devtools")
+devtools::install_git("https://github.com/davideh-vt/delaydiscount")
+#> Skipping install of 'delaydiscount' from a xgit remote, the SHA1 (baf55b6a) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
 ## Example
