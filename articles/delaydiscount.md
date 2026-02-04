@@ -6,8 +6,8 @@ library(delaydiscount)
 
 The delaydiscount package is intended to be used to analyze delay
 discounting data using the linearized hyperbolic model proposed by
-Ferreira, et al. (2026). To analyze discounting data with this package,
-you should first get your data in the format expected by the package.
+Hinds, et al. (2026). To analyze discounting data with this package, you
+should first get your data in the format expected by the package.
 
 Our package expects to take data in long format, meaning that for each
 subject within group, for each delay, the measurement of the
@@ -180,6 +180,6 @@ which group means differ from each other.
 
 ## Citation
 
-Ferreira, et al. (2026). “To linearize or not to linearize: That is the
+Hinds, et al. (2026). “To linearize or not to linearize: That is the
 Mazur delay discounting question”, submitted to *Journal of Mathematical
 Psychology*.
