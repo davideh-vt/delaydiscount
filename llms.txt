@@ -1,0 +1,70 @@
+# delaydiscount
+
+The goal of the delaydiscount package is to provide methods for
+analyzing delay discounting data using the linearized hyperbolic model.
+
+## Installation
+
+You can install the development version of delaydiscount from Github.
+
+``` r
+# install.packages("devtools")
+devtools::install_git("https://github.com/davideh-vt/delaydiscount")
+```
+
+## Example
+
+To fit a model on a dataset of delay discounting data, first run
+`prepare_data_frame` on the dataset, then run `dd_hyperbolic_model` on
+the output.
+
+``` r
+library(delaydiscount)
+## basic example of fitting a model
+prep_remedi <- prepare_data_frame(remedi)
+fit <- dd_hyperbolic_model(prep_remedi)
+fit$ln_k_mean
+#>     condition ln_k_mean   std_err
+#> EFT       EFT -6.877057 0.1638994
+#> HIT       HIT -5.860534 0.1506689
+#> NCC       NCC -6.078229 0.1369001
+fit$var
+#>  sigma_sq         g 
+#>  1.978107 10.407330
+```
+
+# Package index
+
+## All functions
+
+- [`check_input_preconditions()`](https://davideh-vt.github.io/delaydiscount/reference/check_input_preconditions.md)
+  : Check preconditions for an input data frame for the
+  prepare_data_frame and jb_rule_check functions.
+- [`dd_hyperbolic_model()`](https://davideh-vt.github.io/delaydiscount/reference/dd_hyperbolic_model.md)
+  : This function gets model parameter estimates for each group,
+  including hyperparameters and estimates of the variance components
+  (the observation error and subject random effect). It also gets F-test
+  results for pairwise equality for the hyperparameter for each pair of
+  groups, and overall equality of all hyperparameters.
+- [`estimate_hyperbolic_model_params()`](https://davideh-vt.github.io/delaydiscount/reference/estimate_hyperbolic_model_params.md)
+  : Estimate the hyperparameters for each group, as well as the variance
+  components of the model, using maximum likelihood estimation.
+- [`get_subj_est_ln_k()`](https://davideh-vt.github.io/delaydiscount/reference/get_subj_est_ln_k.md)
+  : Return ln(k) estimates for each subject
+- [`hyperbolic_model_f_test()`](https://davideh-vt.github.io/delaydiscount/reference/hyperbolic_model_f_test.md)
+  : Perform an F-test for equality of some combination(s) of
+  hyperparameters.
+- [`jb_rule_check()`](https://davideh-vt.github.io/delaydiscount/reference/jb_rule_check.md)
+  : Apply rule checks to each subject.
+- [`prepare_data_frame()`](https://davideh-vt.github.io/delaydiscount/reference/prepare_data_frame.md)
+  : Prepare a data frame containing discounting for use on the other
+  functions in this package.
+- [`remedi`](https://davideh-vt.github.io/delaydiscount/reference/remedi.md)
+  : REMEDI data
+
+# Articles
+
+### All vignettes
+
+- [delaydiscount](https://davideh-vt.github.io/delaydiscount/articles/delaydiscount.md):
+- [rule-check](https://davideh-vt.github.io/delaydiscount/articles/rule-check.md):
