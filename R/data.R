@@ -11,5 +11,5 @@
 #'   \item{delay}{The wait in days to receive the reward,}
 #'   \item{indiff}{The requisite proportion of reward needed for the subject to be indifferent to waiting for the full reward or receiving a reduced reward immediately}
 #' }
-#' @source https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289478
+#' @source Brown, et al. (2023). "Episodic future thinking in type 2 diabetes: Further development and validation of the Health Information Thinking control for clinical trials". *PLoS ONE 18*(8): e0289478 <https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289478>
 "remedi"

@@ -18,7 +18,7 @@ A data frame with 3,038 rows and 5 columns:
 }
 }
 \source{
-https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289478
+Brown, et al. (2023). "Episodic future thinking in type 2 diabetes: Further development and validation of the Health Information Thinking control for clinical trials". \emph{PLoS ONE 18}(8): e0289478 \url{https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0289478}
 }
 \usage{
 remedi
