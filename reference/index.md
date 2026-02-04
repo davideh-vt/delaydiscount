@@ -1,6 +1,6 @@
 # Package index
 
-## All functions
+## Functions
 
 - [`check_input_preconditions()`](https://davideh-vt.github.io/delaydiscount/reference/check_input_preconditions.md)
   : Check preconditions for an input data frame for the
@@ -24,5 +24,8 @@
 - [`prepare_data_frame()`](https://davideh-vt.github.io/delaydiscount/reference/prepare_data_frame.md)
   : Prepare a data frame containing discounting for use on the other
   functions in this package.
+
+## Datasets
+
 - [`remedi`](https://davideh-vt.github.io/delaydiscount/reference/remedi.md)
   : REMEDI data
