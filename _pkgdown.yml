@@ -2,16 +2,3 @@ url: https://davideh-vt.github.io/delaydiscount/
 template:
   bootstrap: 5
 
-reference:
-- title: "Functions"
-  contents:
-  - check_input_preconditions
-  - dd_hyperbolic_model
-  - estimate_hyperbolic_model_params
-  - get_subj_est_ln_k
-  - hyperbolic_model_f_test
-  - jb_rule_check
-  - prepare_data_frame
-- title: "Datasets"
-  contents:
-  - remedi
