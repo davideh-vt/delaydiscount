@@ -6,7 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of delaydiscount is to …
+The goal of the delaydiscount package is to provide methods for
+analyzing delay discounting data using the linearized hyperbolic model.
 
 ## Installation
 
@@ -15,8 +16,6 @@ You can install the development version of delaydiscount from Github.
 ``` r
 # install.packages("devtools")
 devtools::install_git("https://github.com/davideh-vt/delaydiscount")
-#> Skipping install of 'delaydiscount' from a xgit remote, the SHA1 (baf55b6a) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 ```
 
 ## Example
