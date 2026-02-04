@@ -25,5 +25,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-URL: https://github.com/davideh-vt/delaydiscount
+URL: https://github.com/davideh-vt/delaydiscount, https://davideh-vt.github.io/delaydiscount/
 BugReports: https://github.com/davideh-vt/delaydiscount/issues
