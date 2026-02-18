@@ -39,7 +39,11 @@ estimate_hyperbolic_model_params <- function(dd_data){
   dd_data$group = as.factor(dd_data$group)
   groups = levels(dd_data$group)
   # Get the full group model
-  group_full_model <- lm(indiff_transform ~ offset(log_delay) + group, data = dd_data)
+  if(length(groups) == 1){
+    group_full_model <- lm(indiff_transform ~ offset(log_delay), data = dd_data)
+  } else{
+    group_full_model <- lm(indiff_transform ~ offset(log_delay) + group, data = dd_data)
+  }
   ln_k_means = group_full_model$coefficients[1] + c(0, group_full_model$coefficients[-1])
   names(ln_k_means) = groups
 
