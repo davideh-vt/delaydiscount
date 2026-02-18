@@ -20,10 +20,6 @@
 
 
 dd_hyperbolic_model <- function(dd_data){
-  # TODO: Document this function
-  # TODO: The object returned by this function should have its own class maybe?
-  # TODO: Summary function or maybe override print method when I assign a class
-
   # Check that the function is being called on prepared output
   if(length(which(unique(names(dd_data)) %in% c("subj", "group", "delay", "indiff", "log_delay", "indiff_transform",
                                                 "hyp_left", "lin_ln_k", "residual_hyperbolic"))) < 9){
@@ -34,6 +30,10 @@ dd_hyperbolic_model <- function(dd_data){
 
   # first, get all groups
   groups = levels(as.factor(dd_data$group))
+  if(length(groups) == 1){
+    # if there is only one group, then skip the F-testing
+    return(result)
+  }
   # f-test results should be in a dataframe
   n_groups <- length(groups)
   num_tests <- n_groups*(n_groups-1)/2
