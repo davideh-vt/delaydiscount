@@ -35,25 +35,31 @@ dd_hyperbolic_model <- function(dd_data){
   # first, get all groups
   groups = levels(as.factor(dd_data$group))
   # f-test results should be in a dataframe
-  cond_1 <- c()
-  cond_2 <- c()
-  F_stat <- c()
-  p_value <- c()
-  df1 <- c()
-  df2 <- c()
+  n_groups <- length(groups)
+  num_tests <- n_groups*(n_groups-1)/2
+  # cond_1 <- rep(groups, each = (n_groups-1):0)
+  cond_1 <- rep("", each = num_tests)
+  cond_2 <- rep("", each = num_tests)
+  F_stat <- rep(-1, each = num_tests)
+  p_value <- rep(-1, each = num_tests)
+  df1 <- rep(-1, each = num_tests)
+  df2 <- rep(-1, each = num_tests)
   # Do a pairwise f-test for all groups
+  test_ct <- 1
   for(i in 1:(length(groups)-1)){
     for(j in (i+1):length(groups)){
-      cond_1 <- c(cond_1, groups[i])
-      cond_2 <- c(cond_2, groups[j])
+      cond_1[test_ct] <- groups[i]
+      cond_2[test_ct] <- groups[j]
 
       hyp = list(groups[c(i,j)])
       f_test = hyperbolic_model_f_test(dd_data, hyp)
 
-      F_stat = c(F_stat, f_test$F_stat)
-      p_value = c(p_value, f_test$p_value)
-      df1 = c(df1, f_test$df1)
-      df2 = c(df2, f_test$df2)
+      F_stat[test_ct] = f_test$F_stat
+      p_value[test_ct] = f_test$p_value
+      df1[test_ct] = f_test$df1
+      df2[test_ct] = f_test$df2
+
+      test_ct <- test_ct + 1
     }
   }
 
