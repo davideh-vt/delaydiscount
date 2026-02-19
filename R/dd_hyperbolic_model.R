@@ -30,9 +30,11 @@ dd_hyperbolic_model <- function(dd_data){
 
   # first, get all groups
   groups = levels(as.factor(dd_data$group))
-  if(length(groups) == 1){
+  n = length(unique(dd_data[,c("subj", "group")])$subj)
+  if(length(groups) == 1 | length(groups) == n){
     # if there is only one group, then skip the F-testing
-    return(result)
+    # same if there is only one subject in each group
+    return(fixed_effects_var_ests)
   }
   # f-test results should be in a dataframe
   n_groups <- length(groups)

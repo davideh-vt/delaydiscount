@@ -54,7 +54,16 @@ estimate_hyperbolic_model_params <- function(dd_data){
   dd_data$group_subj_comb = paste(dd_data$group, dd_data$subj)
   # TODO: Check that there are no spaces in any of the group or subject strings
 
-  subj_model = lm(indiff_transform ~ offset(log_delay) + group_subj_comb, data = dd_data)
+  # TODO: Check if every subject belongs to a unique group, and deal with it appropriately
+  if(length(unique(dd_data$group_subj_comb)) == 1){
+    # This would imply that there is a single subject in the entire dataset.
+    subj_model = group_full_model
+    # Technically, the MLE here will have g_hat = 0
+    # However, this is something of a degenerate case
+  }
+  else{
+    subj_model = lm(indiff_transform ~ offset(log_delay) + group_subj_comb, data = dd_data)
+  }
   sse_z = sum(residuals(subj_model)^2)
   ssr_z_x = sse_x - sse_z
 
