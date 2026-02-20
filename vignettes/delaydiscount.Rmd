@@ -112,15 +112,6 @@ $T$ is the number of time points observed for each subject.
 These mean and variance parameters are estimated through maximum likelihood 
 estimation.
 
-Pairwise F-tests for equality of group mean parameters can be obtained from the
-`pairwise_f_tests` component. The data frame contains an F-test for each pair.
-
-```{r}
-model_fit$pairwise_f_tests
-```
-
-Do note that these p-values are not adjusted for multiplicity. When conducting multiple hypothesis tests, the probability of at least one being significant will be larger than the nominal alpha required for significance.
-
 An overall F-test for the equality of all group mean parameters can be found in
 the `model_test` component.
 
@@ -128,7 +119,14 @@ the `model_test` component.
 model_fit$model_test
 ```
 
-Note that this test being significant does not necessarily indicate which group means differ from each other.
+Pairwise F-tests for equality of group mean parameters can be obtained from the
+`pairwise_f_tests` component. The data frame contains an F-test for each pair.
+
+```{r}
+model_fit$pairwise_f_tests
+```
+
+Note that, as with other R functions such as `lm` and `glm`, these p-values are not adjusted for multiplicity.
 
 ## Citation
 
