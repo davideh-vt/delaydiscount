@@ -201,27 +201,23 @@ where
 is the number of time points observed for each subject.</p>
 <p>These mean and variance parameters are estimated through maximum
 likelihood estimation.</p>
+<p>An overall F-test for the equality of all group mean parameters can
+be found in the <code>model_test</code> component.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_fit</span><span class="op">$</span><span class="va">model_test</span></span>
+<span><span class="co">#&gt;     F_stat      p_value df1 df2</span></span>
+<span><span class="co">#&gt; 1 11.33482 1.593828e-05   2 431</span></span></code></pre></div>
 <p>Pairwise F-tests for equality of group mean parameters can be
 obtained from the <code>pairwise_f_tests</code> component. The data
 frame contains an F-test for each pair.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_fit</span><span class="op">$</span><span class="va">pairwise_f_tests</span></span>
 <span><span class="co">#&gt;   cond_1 cond_2    F_stat      p_value df1 df2</span></span>
 <span><span class="co">#&gt; 1    EFT    HIT 20.704017 6.979837e-06   1 431</span></span>
 <span><span class="co">#&gt; 2    EFT    NCC 13.895842 2.189874e-04   1 431</span></span>
 <span><span class="co">#&gt; 3    HIT    NCC  1.135632 2.871738e-01   1 431</span></span></code></pre></div>
-<p>Do note that these p-values are not adjusted for multiplicity. When
-conducting multiple hypothesis tests, the probability of at least one
-being significant will be larger than the nominal alpha required for
-significance.</p>
-<p>An overall F-test for the equality of all group mean parameters can
-be found in the <code>model_test</code> component.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">model_fit</span><span class="op">$</span><span class="va">model_test</span></span>
-<span><span class="co">#&gt;     F_stat      p_value df1 df2</span></span>
-<span><span class="co">#&gt; 1 11.33482 1.593828e-05   2 431</span></span></code></pre></div>
-<p>Note that this test being significant does not necessarily indicate
-which group means differ from each other.</p>
+<p>Note that, as with other R functions such as <code>lm</code> and
+<code>glm</code>, these p-values are not adjusted for multiplicity.</p>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>

@@ -149,6 +149,15 @@ for each subject.
 These mean and variance parameters are estimated through maximum
 likelihood estimation.
 
+An overall F-test for the equality of all group mean parameters can be
+found in the `model_test` component.
+
+``` r
+model_fit$model_test
+#>     F_stat      p_value df1 df2
+#> 1 11.33482 1.593828e-05   2 431
+```
+
 Pairwise F-tests for equality of group mean parameters can be obtained
 from the `pairwise_f_tests` component. The data frame contains an F-test
 for each pair.
@@ -161,22 +170,8 @@ model_fit$pairwise_f_tests
 #> 3    HIT    NCC  1.135632 2.871738e-01   1 431
 ```
 
-Do note that these p-values are not adjusted for multiplicity. When
-conducting multiple hypothesis tests, the probability of at least one
-being significant will be larger than the nominal alpha required for
-significance.
-
-An overall F-test for the equality of all group mean parameters can be
-found in the `model_test` component.
-
-``` r
-model_fit$model_test
-#>     F_stat      p_value df1 df2
-#> 1 11.33482 1.593828e-05   2 431
-```
-
-Note that this test being significant does not necessarily indicate
-which group means differ from each other.
+Note that, as with other R functions such as `lm` and `glm`, these
+p-values are not adjusted for multiplicity.
 
 ## Citation
 
