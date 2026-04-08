@@ -4,10 +4,6 @@
 library(delaydiscount)
 ```
 
-TODO: This file should include the entire workflow and not just the rule
-check. However, I do not want to add it until I finish it for the main
-path (no rule check), since any edits will need to be copied over.
-
 The jb_rule_check function can be used to apply the rule check for the
 purpose of filtering out subjects who fail.
 
@@ -45,4 +41,122 @@ remedi_rc_pass <- dplyr::filter(remedi_with_rc,
 ```
 
 After that, the remainder of the workflow proceeds as it would
-otherwise.
+otherwise, starting from running the `prepare_data_frame` function on
+the dataset with rule check failures filtered out. calculations for our
+other functions.
+
+``` r
+prep_remedi <- prepare_data_frame(remedi_rc_pass)
+```
+
+One of the things that the `prepare_data_frame` function does is
+transform the delay and indifference variables to linearize the model.
+
+Note that the hyperbolic model for the discounting curve is
+$D(t) = \frac{1}{1 + kt}$.
+
+Then we will have
+$\log\left( \frac{1}{D(t)} - 1 \right) = \log(k) + \log(t)$.
+
+We assume that the transformed observed indifference point
+$\widetilde{D}\left( t_{ijc} \right)$ will follow the model
+
+$\log\left( \frac{1}{\widetilde{D}\left( t_{ijc} \right)} - 1 \right) = \log\left( k_{ic} \right) + \log\left( t_{ijc} \right) + \epsilon_{ijc},$
+
+where $\epsilon_{ijc} \sim N\left( 0,\sigma^{2} \right)$, $i$ is an
+index for subject, $j$ an index for time point, and $c$ is an index for
+group, and
+
+$\log\left( k_{ic} \right) \sim N\left( \theta_{c},\frac{g\sigma^{2}}{T} \right)$,
+where $\theta_{c}$ is the population mean of the
+$\log\left( k_{ic} \right)$ for subjects in group $c$, and $T$ is the
+number of time points observed for each subject.
+
+Using the prepared data frame, you can get estimates of the $log(k)$
+values for each subject using the `get_subj_est_ln_k` function.
+
+``` r
+ln_k_ests <- get_subj_est_ln_k(prep_remedi)
+head(ln_k_ests)
+#> # A tibble: 6 × 3
+#> # Groups:   group [1]
+#>   group     subj  ln_k
+#>   <chr>    <int> <dbl>
+#> 1 EFT   10458654 -7.73
+#> 2 EFT   10698816 -6.39
+#> 3 EFT   11624253 -6.69
+#> 4 EFT   11646612 -6.58
+#> 5 EFT   12088534 -8.41
+#> 6 EFT   15110483 -7.29
+```
+
+Our model treats the $\log(k)$ values for individual subjects as the
+result of a combination of a fixed group effect and a random subject
+effect. To get the fit of the linearized hyperbolic model, use the
+`dd_hyperbolic_model` function.
+
+``` r
+model_fit <- dd_hyperbolic_model(prep_remedi)
+```
+
+The object produced by this method is a list containing several
+components.
+
+The group mean $\log(k)$ estimates (i.e. the $\theta_{c}$) can be gotten
+from the `ln_k_mean` component.
+
+``` r
+model_fit$ln_k_mean
+#>     condition ln_k_mean   std_err
+#> EFT       EFT -6.563498 0.1545544
+#> HIT       HIT -5.905766 0.1336723
+#> NCC       NCC -5.982325 0.1194661
+```
+
+These are estimates of the mean of the distribution from which the
+$\log\left( k_{ic} \right)$ values for subjects in group $c$ have been
+realized.
+
+The variance component estimates can be obtained from the `var`
+component.
+
+``` r
+model_fit$var
+#> sigma_sq        g 
+#> 1.595641 8.955180
+```
+
+`sigma_sq` is the estimate of the variance of the transformed
+indifference value conditional on the subject effect.
+
+`g` is related to the variance of the subject random effects:
+specifically, the variance of the subject random effect is equal to
+$\frac{g\sigma^{2}}{T}$, where $T$ is the number of time points observed
+for each subject.
+
+These mean and variance parameters are estimated through maximum
+likelihood estimation.
+
+An overall F-test for the equality of all group mean parameters can be
+found in the `model_test` component.
+
+``` r
+model_fit$model_test
+#>     F_stat     p_value df1 df2
+#> 1 5.989811 0.002748074   2 378
+```
+
+Pairwise F-tests for equality of group mean parameters can be obtained
+from the `pairwise_f_tests` component. The data frame contains an F-test
+for each pair.
+
+``` r
+model_fit$pairwise_f_tests
+#>   cond_1 cond_2    F_stat     p_value df1 df2
+#> 1    EFT    HIT 10.279025 0.001460043   1 378
+#> 2    EFT    NCC  8.781681 0.003235316   1 378
+#> 3    HIT    NCC  0.180928 0.670819017   1 378
+```
+
+Note that, as with other R functions such as `lm` and `glm`, these
+p-values are not adjusted for multiplicity.
