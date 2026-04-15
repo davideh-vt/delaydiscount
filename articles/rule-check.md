@@ -42,8 +42,9 @@ remedi_rc_pass <- dplyr::filter(remedi_with_rc,
 
 After that, the remainder of the workflow proceeds as it would
 otherwise, starting from running the `prepare_data_frame` function on
-the dataset with rule check failures filtered out. calculations for our
-other functions.
+the dataset with rule check failures filtered out. The
+`prepare_data_frame` function performs helper calculations for our other
+functions.
 
 ``` r
 prep_remedi <- prepare_data_frame(remedi_rc_pass)

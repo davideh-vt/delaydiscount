@@ -97,8 +97,9 @@ the rule check can be removed from the data.</p>
 <span>                                <span class="va">C1</span> <span class="op">==</span> <span class="cn">TRUE</span>, <span class="va">C2</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>After that, the remainder of the workflow proceeds as it would
 otherwise, starting from running the <code>prepare_data_frame</code>
-function on the dataset with rule check failures filtered out.
-calculations for our other functions.</p>
+function on the dataset with rule check failures filtered out. The
+<code>prepare_data_frame</code> function performs helper calculations
+for our other functions.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prep_remedi</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_data_frame.html">prepare_data_frame</a></span><span class="op">(</span><span class="va">remedi_rc_pass</span><span class="op">)</span></span></code></pre></div>
 <p>One of the things that the <code>prepare_data_frame</code> function
