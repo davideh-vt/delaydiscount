@@ -2,7 +2,7 @@ Package: delaydiscount
 Title: Fit Linearized Hyperbolic Model for Delay Discounting Curves
 Version: 0.0.1
 Authors@R: c(
-    person("David", "Hinds", email = "davideh@vt.edu", role = c("aut", "cre", "cph")),
+    person("David", "Hinds", email = "davideh@vt.edu", role = c("aut", "cre")),
     person("Marco", "Ferreira", email = "marf@vt.edu", role = c("aut")),
     person("Allison", "Tegge", email = "ategge@vt.edu", role = c("ctb")),
     person("Jeff", "Stein", email = "jstein1@vtc.vt.edu", role = c("ctb"))
