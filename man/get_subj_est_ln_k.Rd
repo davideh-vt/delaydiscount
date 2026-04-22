@@ -17,3 +17,8 @@ with the variable ln_k containing that subject's estimated ln_k value.
 \description{
 Return ln(k) estimates for each subject
 }
+\examples{
+prep_remedi <- prepare_data_frame(remedi)
+subj_est_ln_k <- get_subj_est_ln_k(prep_remedi)
+
+}

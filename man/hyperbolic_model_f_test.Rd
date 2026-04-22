@@ -25,3 +25,8 @@ df2, the denominator degrees of freedom of the F-test
 This function is a helper function for dd_hyperbolic_model.
 We recommend not using this function on its own.
 }
+\examples{
+prep_remedi <- prepare_data_frame(remedi)
+f_test_result <- hyperbolic_model_f_test(prep_remedi, list(c("EFT", "NCC")))
+
+}

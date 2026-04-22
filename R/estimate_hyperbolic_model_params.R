@@ -1,7 +1,7 @@
 #' Estimate the hyperparameters for each group, as well as the variance
 #' components of the model, using maximum likelihood estimation.
 #'
-#' #' This function is a helper function for dd_hyperbolic_model.
+#' This function is a helper function for dd_hyperbolic_model.
 #' We recommend not using this function on its own.
 #'
 #' @importFrom stats lm
@@ -10,9 +10,6 @@
 #' @importFrom dplyr summarise
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
-#'
-#' @export
-
 #'
 #' @param dd_data A specially formatted data frame as returned by the
 #' prepare_data_frame function.
@@ -33,8 +30,14 @@
 #' model_test is a data frame containing the result of the F-test for equality
 #'  of all hyperparameters. It contains the columns F_stat, p_value, df1, and df2,
 #'  which have the same meaning as in the pairwise_f_tests data frame.
+#'
+#' @examples
+#' prep_remedi <- prepare_data_frame(remedi)
+#' param_ests <- estimate_hyperbolic_model_params(prep_remedi)
+#'
+#' @export
 
-# First, make a function that can estimate model parameters
+
 estimate_hyperbolic_model_params <- function(dd_data){
   # Setup input to get it into predictable format
   #dd_data = prepare_data_frame(dd_data)

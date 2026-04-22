@@ -26,7 +26,13 @@
 #'
 #' @returns A data frame compatible with the other functions in this package.
 #'
+#' @examples
+#' prep_remedi <- prepare_data_frame(remedi)
+#'
+#'
 #' @export
+
+
 prepare_data_frame <- function(dd_data){
   # Check that input passes preconditions
   check_input_preconditions(dd_data)

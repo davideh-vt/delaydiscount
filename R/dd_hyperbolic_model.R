@@ -16,6 +16,10 @@
 #'  g is related to the variance of the subject random effect, which is equal to
 #'  g*sigma_sq/T, where T is the number of time points.
 #'
+#' @examples
+#' prep_remedi <- prepare_data_frame(remedi)
+#' dd_model <- dd_hyperbolic_model(prep_remedi)
+#'
 #' @export
 
 

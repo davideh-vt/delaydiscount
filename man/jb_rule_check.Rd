@@ -30,3 +30,8 @@ the indifference point increases by more than 0.2
 to the latest time point.
 }
 }
+\examples{
+rule_check_result <- jb_rule_check(remedi)
+
+
+}

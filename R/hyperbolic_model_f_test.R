@@ -18,11 +18,13 @@
 #' df1, the numerator degrees of freedom of the F-test (dimensionality of H0)
 #' df2, the denominator degrees of freedom of the F-test
 #'
+#' @examples
+#' prep_remedi <- prepare_data_frame(remedi)
+#' f_test_result <- hyperbolic_model_f_test(prep_remedi, list(c("EFT", "NCC")))
+#'
 #' @export
 
-# Maybe hide this function and make a simpler function that publicly faces the user
-#  That function would cover more practical cases but call this function.
-# The R Package function that the user is encouraged to use should probably not be this flexible.
+
 hyperbolic_model_f_test <- function(dd_data, hypothesis){
   # Add a check to make sure that a group does not appear in more than one vector
   red_groups = dd_data$group

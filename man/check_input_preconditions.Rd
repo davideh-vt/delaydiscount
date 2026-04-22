@@ -12,7 +12,15 @@ check_input_preconditions(dd_data)
 This function is designed to fail if the preconditions for the discounting
 data data frame are not met.}
 }
+\value{
+NULL if the input data frame passes the format checks.
+Throws an error if an input check is failed.
+}
 \description{
 This function is a helper function for the prepare_data_frame and
 jb_rule_check methods.
+}
+\examples{
+check_input_preconditions(remedi)
+
 }

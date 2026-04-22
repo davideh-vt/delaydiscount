@@ -30,3 +30,8 @@ and estimates of the variance components (the observation error and subject rand
 It also gets F-test results for pairwise equality for the hyperparameter for
 each pair of groups, and overall equality of all hyperparameters.
 }
+\examples{
+prep_remedi <- prepare_data_frame(remedi)
+dd_model <- dd_hyperbolic_model(prep_remedi)
+
+}

@@ -10,7 +10,13 @@
 #' @returns  A data frame consisting of one observation per subject within group
 #' with the variable ln_k containing that subject's estimated ln_k value.
 #'
+#' @examples
+#' prep_remedi <- prepare_data_frame(remedi)
+#' subj_est_ln_k <- get_subj_est_ln_k(prep_remedi)
+#'
 #' @export
+
+
 get_subj_est_ln_k <- function(dd_data){
   # Check that the data frame is compatible
   if(length(which(unique(names(dd_data)) %in% c("subj", "group", "delay", "indiff", "log_delay", "indiff_transform",
