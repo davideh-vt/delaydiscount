@@ -28,3 +28,10 @@ prepare_data_frame(dd_data)
 ## Value
 
 A data frame compatible with the other functions in this package.
+
+## Examples
+
+``` r
+prep_remedi <- prepare_data_frame(remedi)
+
+```

@@ -29,3 +29,10 @@ A list with the entries F_stat, the test statistic of the F-test,
 p_value, the p-value of the F-test df1, the numerator degrees of freedom
 of the F-test (dimensionality of H0) df2, the denominator degrees of
 freedom of the F-test
+
+## Examples
+
+``` r
+prep_remedi <- prepare_data_frame(remedi)
+f_test_result <- hyperbolic_model_f_test(prep_remedi, list(c("EFT", "NCC")))
+```

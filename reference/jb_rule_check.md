@@ -32,3 +32,10 @@ jb_rule_check(dd_data)
 A data frame consisting of one observation per subject within group with
 the boolean variables C1 and C2 which are TRUE if the corresponding rule
 was passed and FALSE if it was not.
+
+## Examples
+
+``` r
+rule_check_result <- jb_rule_check(remedi)
+
+```

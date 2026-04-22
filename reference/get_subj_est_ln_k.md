@@ -19,3 +19,10 @@ get_subj_est_ln_k(dd_data)
 
 A data frame consisting of one observation per subject within group with
 the variable ln_k containing that subject's estimated ln_k value.
+
+## Examples
+
+``` r
+prep_remedi <- prepare_data_frame(remedi)
+subj_est_ln_k <- get_subj_est_ln_k(prep_remedi)
+```
