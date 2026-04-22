@@ -3,6 +3,10 @@
 #' This function is a helper function for dd_hyperbolic_model.
 #' We recommend not using this function on its own.
 #'
+#' @importFrom stats lm
+#' @importFrom stats residuals
+#' @importFrom stats pf
+#'
 #' @param dd_data A specially formatted data frame as returned by the
 #' prepare_data_frame function.
 #' @param hypothesis A list of string vectors. Each string is the name of a

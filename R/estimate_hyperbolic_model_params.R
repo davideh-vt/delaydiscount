@@ -4,6 +4,8 @@
 #' #' This function is a helper function for dd_hyperbolic_model.
 #' We recommend not using this function on its own.
 #'
+#' @importFrom stats lm
+#' @importFrom stats residuals
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
 #' @importFrom magrittr %>%
