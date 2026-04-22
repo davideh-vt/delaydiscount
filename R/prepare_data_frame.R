@@ -13,6 +13,7 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #'
 #' @param dd_data A data frame containing discounting data in long format.
 #' (describe preconditions for the input?)
@@ -32,10 +33,8 @@ prepare_data_frame <- function(dd_data){
 
   # first, make sure that it does not have extra variables
   dd_data <- dd_data %>%
-    select(subj, group, delay, indiff)
-
-  dd_data = dd_data %>%
-    arrange(group, subj, delay)
+    dplyr::select(.data$subj, .data$group, .data$delay, .data$indiff) %>%
+    dplyr::arrange(.data$group, .data$subj, .data$delay)
 
   # add transformations of variables
   dd_data$log_delay <- log(dd_data$delay)
@@ -47,10 +46,10 @@ prepare_data_frame <- function(dd_data){
   # calculate est ln_k by subj
   # make sure this works
   est_ln_k <- dd_data %>%
-    group_by(group, subj) %>%
-    summarise(lin_ln_k = mean(hyp_left))
+    dplyr::group_by(.data$group, .data$subj) %>%
+    dplyr::summarise(lin_ln_k = mean(.data$hyp_left))
   dd_data = merge(dd_data, est_ln_k) %>%
-    arrange(group, subj, delay)
+    dplyr::arrange(.data$group, .data$subj, .data$delay)
   # Calculate residuals
   dd_data$residual_hyperbolic <- dd_data$hyp_left - dd_data$lin_ln_k
 

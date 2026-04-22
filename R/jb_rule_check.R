@@ -18,6 +18,7 @@
 #' @importFrom dplyr select
 #' @importFrom dplyr arrange
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #'
 #' @returns A data frame consisting of one observation per subject within group
 #' with the boolean variables C1 and C2 which are TRUE if the corresponding rule
@@ -31,26 +32,26 @@ jb_rule_check <- function(dd_data){
   # Check that input passes preconditions
   check_input_preconditions(dd_data)
 
-  n_tp = length(unique(dd_data$delay))
+  n_tp <- length(unique(dd_data$delay))
   dd_data_1 <- dd_data %>%
-    select(group, subj, delay, indiff) %>%
-    arrange(group, subj, delay)
+    dplyr::select(.data$group, .data$subj, .data$delay, .data$indiff) %>%
+    dplyr::arrange(.data$group, .data$subj, .data$delay)
 
-  id_vars = which(names(dd_data_1) %in% c("group", "subj"))
-  id_order = unique(dd_data_1[,id_vars])
+  id_vars <- which(names(dd_data_1) %in% c("group", "subj"))
+  id_order <- unique(dd_data_1[,id_vars])
   indiff_mat <- t(matrix(data = dd_data_1$indiff,
                          nrow = n_tp,
                          ncol = length(id_order[,1])))
 
-  tp_diff = indiff_mat[,2:n_tp] - indiff_mat[,1:(n_tp-1)]
-  jumps = tp_diff >= .2
-  jump_count = rowSums(jumps)
-  C1 = jump_count < 2
-  C2 = indiff_mat[,1] - indiff_mat[,n_tp] >= .1
+  tp_diff <- indiff_mat[,2:n_tp] - indiff_mat[,1:(n_tp-1)]
+  jumps <- tp_diff >= .2
+  jump_count <- rowSums(jumps)
+  C1 <- jump_count < 2
+  C2 <- indiff_mat[,1] - indiff_mat[,n_tp] >= .1
 
   dd_data_1 <- id_order
-  dd_data_1$C1 = C1
-  dd_data_1$C2 = C2
+  dd_data_1$C1 <- C1
+  dd_data_1$C2 <- C2
 
   return(dd_data_1)
 }

@@ -9,6 +9,7 @@
 #' @importFrom dplyr summarise
 #' @importFrom dplyr n
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #'
 #' @param dd_data A data frame containing discounting data in long format.
 #' This function is designed to fail if the preconditions for the discounting
@@ -28,8 +29,9 @@ check_input_preconditions <- function(dd_data){
   delay_set = unique(dd_data$delay)
   n_tp = length(delay_set)
   id_df = dd_data %>%
-    select(subj, group, delay) %>%
+    dplyr::select(.data$subj, .data$group, .data$delay) %>%
     unique()
+
   if(dim(id_df)[1] != dim(dd_data)[1]){
     # This checks to ensure there are no repeat observations
     # n_gst_obs <- dd_data %>%
@@ -38,8 +40,8 @@ check_input_preconditions <- function(dd_data){
     stop("The input data frame must have no more than one observation per time point for each subject within group.")
   }
   n_obs_id = id_df %>%
-    group_by(subj, group) %>%
-    summarise(n_tp = n())
+    dplyr::group_by(.data$subj, .data$group) %>%
+    dplyr::summarise(n_tp = n())
   if(sum(n_obs_id$n_tp != n_tp) > 0){
     stop("Every subject within group must have an observation for each time point.")
   }
@@ -54,7 +56,6 @@ check_input_preconditions <- function(dd_data){
     stop("All indifference points must be between 0 and 1, exclusive.")
   }
 
-  # TODO: Check if subjects are unique between groups
   if(length(n_obs_id$subj) != length(unique(n_obs_id$subj))){
     warning("The models in this package assume discounting curves are independent. Subjects appearing in more than one group may violate this assumption.")
   }

@@ -3,6 +3,7 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #'
 #' @param dd_data A specially formatted data frame as returned by the
 #' prepare_data_frame function.
@@ -18,8 +19,8 @@ get_subj_est_ln_k <- function(dd_data){
   }
 
   result <- dd_data %>%
-    group_by(group, subj) %>%
-    summarise(ln_k = mean(hyp_left))
+    dplyr::group_by(.data$group, .data$subj) %>%
+    dplyr::summarise(ln_k = mean(.data$hyp_left))
 
   return(result)
 }

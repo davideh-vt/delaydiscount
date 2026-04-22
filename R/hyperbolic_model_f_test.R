@@ -43,7 +43,7 @@ hyperbolic_model_f_test <- function(dd_data, hypothesis){
   sse_x_red = sum(residuals(group_red_model)^2)
 
   dd_data$group_subj_comb = paste(dd_data$group, dd_data$subj)
-  # TODO: Check that there are no spaces in any of the group or subject strings
+
   subj_model = lm(indiff_transform ~ offset(log_delay) + group_subj_comb, data = dd_data)
   sse_z = sum(residuals(subj_model)^2)
 
@@ -59,10 +59,6 @@ hyperbolic_model_f_test <- function(dd_data, hypothesis){
   f_stat = msr_full_red/msr_z_x_full
   p_val = pf(f_stat, df_1, df_2, lower.tail = F)
 
-  # Maybe convert to list
-  #sig_test = c(f_stat, p_val, df_1, df_2)
-  #names(sig_test) = c("F_stat", "p_value", "df1", "df2")
-
   sig_test = list(F_stat = f_stat,
                   p_value = p_val,
                   df1 = df_1,
@@ -70,12 +66,3 @@ hyperbolic_model_f_test <- function(dd_data, hypothesis){
 
   return(sig_test)
 }
-
-# Maybe have a summary function that takes the output from this function and makes it into a nice table.
-# Look at classes in R
-
-#hyperbolic.model.f.test(remedi_data_rc, list(c("EFT", "NCC")))
-#hyperbolic.model.f.test(remedi_data_rc, list(c("EFT", "HIT")))
-#hyperbolic.model.f.test(remedi_data_rc, list(c("NCC", "HIT")))
-#hyperbolic.model.f.test(remedi_data_rc, list(c("NCC", "HIT", "EFT")))
-
