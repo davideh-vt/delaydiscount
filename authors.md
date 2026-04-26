@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **David Hinds**. Author, maintainer, copyright holder.
+- **David Hinds**. Author, maintainer.
 
 - **Marco Ferreira**. Author.
 
