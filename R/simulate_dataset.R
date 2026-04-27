@@ -49,7 +49,7 @@ simulate_dataset <- function(conditions,
   if(length(conditions) != length(mean_ln_k)){
     stop("mean_ln_k must have length equal to the number of conditions.")
   }
-  if((sum(num_subj) > 0) != length(num_subj)){
+  if(sum(num_subj > 0) != length(num_subj)){
     stop("Numbers of subjects must be positive.")
   }
   if(sigma_sq < 0 | g < 0){
