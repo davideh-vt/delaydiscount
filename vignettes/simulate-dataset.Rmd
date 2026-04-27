@@ -40,6 +40,7 @@ The model is hierarchical, as the $\log(k_{ic})$ parameter for each subject with
 A call to `simulate_dataset` is shown below.
 
 ```{r}
+set.seed(8678)
 sim_data <- simulate_dataset(conditions = c("EFT", "HIT", "NCC"),
                              num_subj = c(120, 142, 172),
                              time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
@@ -80,6 +81,14 @@ The `true_ln_k` column contains the true $\log(k_{ic})$ parameter of the subject
 For example, the following code produces a plot of the true vs estimated subject $\log(k_{ic})$ parameters, with points colored by rule check result.
 
 ```{r}
+#| fig.alt: >
+#|   Scatterplot showing the true vs estimated log k values for each subject,
+#|   colored by whether or not the subject passed the rule check. The subject 
+#|   log k parameter estimates are maximum likelihood estimates.
+#|   The plot shows a line indicating where the estimated log k equals the true 
+#|   log k, and the plotted points scatter around that line, since the estimator
+#|   is unbiased. The true log k values of the rule check failures tend to vary
+#|   more than the true log k values of the rule check passers.
 # Get a data frame consisting of one observation per subject, containing each
 #  subject's true ln(k)
 subj_true_ln_k <- sim_data %>%
@@ -99,7 +108,7 @@ subj_ln_k_comp_wrc$rc_pass <- subj_ln_k_comp_wrc$C1 & subj_ln_k_comp_wrc$C2
 #  passed the rule check.
 plot(x = subj_ln_k_comp_wrc$true_ln_k, y = subj_ln_k_comp_wrc$ln_k,
      col = ifelse(subj_ln_k_comp_wrc$rc_pass, "green", "blue"),
-     main = "Subject True vs Estimated ln(k)",
+     main = "Subject True vs Maximum Likelihood Estimated ln(k)",
      xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
 abline(a=0, b=1)
 legend("topleft", 
@@ -112,6 +121,16 @@ legend("topleft",
 However, the data could be used to calculate other estimators of the subject $\log(k_{ic})$ for comparison purposes.
 
 ```{r}
+#| fig.alt: >
+#|   Scatterplot showing the true vs estimated log k values for each subject,
+#|   colored by group. The log k estimates are a convex combination of the 
+#|   subject parameter and condition hyperparameter maximum likelihood estimates
+#|   chosen to minimize the mean square error of the subject log k estimate.
+#|   The point positions are not visibly different since the estimates are
+#|   nearly identical. The log k values in the E F T condition are slightly but
+#|   noticably smaller on average compared to the H I T and N C C conditions. 
+#|   The H I T and N C C conditions are not noticably different.
+
 # Calculate alternative estimator for subj ln(k)
 group_means <- sim_model$ln_k_mean %>%
   select(condition, ln_k_mean) %>%
@@ -131,6 +150,7 @@ subj_ln_k_est_comp$reg_est_ln_k <-
 
 # Plot alternative estimator vs true ln(k)
 plot(x = subj_ln_k_est_comp$true_ln_k, y = subj_ln_k_est_comp$reg_est_ln_k,
+     main = "Subject True vs MSE-Optimal Estimated ln(k)",
      col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", 
                   ifelse(subj_ln_k_est_comp$group == "HIT", "orange", "skyblue")),
      xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
