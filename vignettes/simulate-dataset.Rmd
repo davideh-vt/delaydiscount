@@ -112,10 +112,13 @@ legend("topleft",
 However, the data could be used to calculate other estimators of the subject $\log(k_{ic})$ for comparison purposes.
 
 ```{r}
+# Calculate alternative estimator for subj ln(k)
 group_means <- sim_model$ln_k_mean %>%
   select(condition, ln_k_mean) %>%
   rename(group = condition)
 g_hat <- sim_model$var["g"]
+
+n_tp <- length(unique(sim_data$delay))
 
 subj_ln_k_est_comp <- merge(subj_ln_k_comp, group_means) %>%
   rename(indiv_est_ln_k = ln_k,
@@ -123,9 +126,10 @@ subj_ln_k_est_comp <- merge(subj_ln_k_comp, group_means) %>%
 
 subj_ln_k_est_comp$reg_est_ln_k <- 
   (g_hat*subj_ln_k_est_comp$indiv_est_ln_k + 
-     (1/7)*subj_ln_k_est_comp$group_est_ln_k)/
-  (g_hat + 1/7)
+     (1/n_tp)*subj_ln_k_est_comp$group_est_ln_k)/
+  (g_hat + 1/n_tp)
 
+# Plot alternative estimator vs true ln(k)
 plot(x = subj_ln_k_est_comp$true_ln_k, y = subj_ln_k_est_comp$reg_est_ln_k,
      col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", "orange"),
      xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
