@@ -9,6 +9,10 @@ test_that("dataframe structure is correct", {
   expect_equal(dd_data$delay,
                rep(c(30, 90, 180, 365, 1095, 1825, 3650), 225))
   indiff_transform <- log(1/dd_data$indiff - 1)
+  # Test compatibility of output df with our other methods
+  expect_no_error(prepare_data_frame(dd_data))
+  expect_no_error(jb_rule_check(dd_data))
+
 })
 
 test_that("simulation works as expected", {
