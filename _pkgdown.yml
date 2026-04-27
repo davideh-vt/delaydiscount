@@ -12,6 +12,7 @@ reference:
   - hyperbolic_model_f_test
   - jb_rule_check
   - prepare_data_frame
+  - simulate_dataset
 - title: "Datasets"
   contents:
   - remedi
