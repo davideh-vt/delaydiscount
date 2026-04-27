@@ -1,0 +1,204 @@
+# simulate-dataset
+
+``` r
+library(delaydiscount)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+```
+
+The `simulate_dataset` method can be used to simulate data from the
+hierarchical linearized hyperbolic model.
+
+The hierarchical linearized hyperboloid model works as follows.
+
+The hyperbolic model for the discounting curve is
+$D(t) = \frac{1}{1 + kt}$. However, actual discounting rates reported by
+subjects may not fit this curve. Actual discounting proportions are
+assumed to be between 0 and 1, exclusive. They are transformed from the
+$(0,1)$ scale to a $( - \infty,\infty)$ scale by the function
+$\phi(x) = \log\left( \frac{1}{x} - 1 \right)$.
+
+The model discounting curve with the transformation applied is
+$\log\left( \frac{1}{D(t)} - 1 \right) = \log(k) + \log(t)$. The
+transformed curve provides a mean structure for the data, conditional on
+the subject’s $\log(k)$ parameter.
+
+We assume that the transformed observed indifference point
+$\widetilde{D}\left( t_{ijc} \right)$ will follow the model
+
+$\log\left( \frac{1}{\widetilde{D}\left( t_{ijc} \right)} - 1 \right) = \log\left( k_{ic} \right) + \log\left( t_{ijc} \right) + \epsilon_{ijc},$
+
+where $\epsilon_{ijc} \sim N\left( 0,\sigma^{2} \right)$, $i$ is an
+index for subject, $j$ an index for time point, and $c$ is an index for
+group/condition.
+
+$\log\left( k_{ic} \right) \sim N\left( \theta_{c},\frac{g\sigma^{2}}{T} \right)$,
+where $\theta_{c}$ is the population mean of the
+$\log\left( k_{ic} \right)$ for subjects in condition $c$, and $T$ is
+the number of time points observed for each subject.
+
+The model is hierarchical, as the $\log\left( k_{ic} \right)$ parameter
+for each subject within a condition is assumed to be a realization from
+a normal distribution with some population mean $\theta_{c}$ for its
+subjects, and variance $\frac{g\sigma^{2}}{T}$, i.e. the variance is
+constant across subjects, across conditions.
+
+A call to `simulate_dataset` is shown below.
+
+``` r
+set.seed(8678)
+sim_data <- simulate_dataset(conditions = c("EFT", "HIT", "NCC"),
+                             num_subj = c(120, 142, 172),
+                             time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
+                             mean_ln_k = c(-6.877, -5.861, -6.078),
+                             sigma_sq = 1.978, g = 10.407)
+```
+
+The `conditions` vector gives the name of the conditions in the
+simulated study.
+
+The `num_subj` vector gives the sample size for each condition.
+
+The `time_points` vector gives the surveyed delay lengths.
+
+The `mean_ln_k` vector gives the condition mean hyperparameters.
+
+The value `sigma_sq` gives the parameter $\sigma^{2}$, which represents
+the conditional variance of an observed transformed indifference point
+$\log\left( \frac{1}{\widetilde{D}\left( t_{ijc} \right)} - 1 \right)$
+given the subject’s $\log\left( k_{ic} \right)$ parameter.
+
+The value `g` gives the ratio of the variance subject
+$\log\left( k_{ic} \right)$ parameter to the conditional variance of the
+least squares (on the transformed scale) estimator of a subject’s
+$\log\left( k_{ic} \right)$ parameter given the true
+$\log\left( k_{ic} \right)$. The result is that the true
+$\log\left( k_{ic} \right)$ parameters have value
+$\frac{g\sigma^{2}}{T}$. (Recall $T$ is the length of the `time_points`
+vector.)
+
+The data frame output by `sim_data` can be analyzed using our analysis
+methods. In particular, `prepare_data_frame` and `jb_rule_check` are
+ready to be run on the data frame. However, `dd_hyperbolic_model` and
+`get_subj_est_ln_k` will still need to be run on the output from
+`prepare_data_frame`.
+
+``` r
+# These methods can be run on the output from simulate_dataset
+prep_data <- prepare_data_frame(sim_data)
+rule_check_results <- jb_rule_check(sim_data)
+
+# These methods need to be run on the output from prepare_data_frame
+subj_est_ln_k <- get_subj_est_ln_k(prep_data)
+sim_model <- dd_hyperbolic_model(prep_data)
+```
+
+The output from `simulate_dataset` has one observation per simulated
+subject per delay for which an indifference point was observed. It has
+columns `subj`, `true_ln_k`, `group`, `delay`, and `indiff`.
+
+The columns other than `true_ln_k` are necessary to run the analysis
+function on the dataset. The `subj` column identifies the subject, the
+`group` column identifies the condition, the `delay` column identifies
+the length of time for which the observed indifference point is
+measured, and the `indiff` column contains the subject’s indifference
+point for the delay expressed as a proportion of the maximum reward.
+
+The `true_ln_k` column contains the true $\log\left( k_{ic} \right)$
+parameter of the subject which the observation corresponds to. This can
+be used to compare estimates of the subject $\log\left( k_{ic} \right)$
+parameters with the true values.
+
+For example, the following code produces a plot of the true vs estimated
+subject $\log\left( k_{ic} \right)$ parameters, with points colored by
+rule check result.
+
+``` r
+# Get a data frame consisting of one observation per subject, containing each
+#  subject's true ln(k)
+subj_true_ln_k <- sim_data %>%
+  select(subj, true_ln_k, group) %>%
+  unique()
+
+# Merge the data frames containing the true subject ln_k values, estimated
+#  subject ln_k values, and rule check results.
+subj_ln_k_comp <- merge(subj_est_ln_k, subj_true_ln_k)
+subj_ln_k_comp_wrc <- merge(subj_ln_k_comp, rule_check_results)
+
+# Get the overall rule check result for each subject
+subj_ln_k_comp_wrc$rc_pass <- subj_ln_k_comp_wrc$C1 & subj_ln_k_comp_wrc$C2
+
+# Make a plot showing true vs estimated ln(k) for each subject,
+#  coloring the points based on whether or not the corresponding subject
+#  passed the rule check.
+plot(x = subj_ln_k_comp_wrc$true_ln_k, y = subj_ln_k_comp_wrc$ln_k,
+     col = ifelse(subj_ln_k_comp_wrc$rc_pass, "green", "blue"),
+     main = "Subject True vs Maximum Likelihood Estimated ln(k)",
+     xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
+abline(a=0, b=1)
+legend("topleft", 
+       legend = c(
+         "Passes rule check",
+         "Fails rule check"),
+       col = c("green", "blue"), pch = 1)
+```
+
+![Scatterplot showing the true vs estimated log k values for each
+subject, colored by whether or not the subject passed the rule check.
+The subject log k parameter estimates are maximum likelihood estimates.
+The plot shows a line indicating where the estimated log k equals the
+true log k, and the plotted points scatter around that line, since the
+estimator is unbiased. The true log k values of the rule check failures
+tend to vary more than the true log k values of the rule check
+passers.](simulate-dataset_files/figure-html/unnamed-chunk-4-1.png)
+
+However, the data could be used to calculate other estimators of the
+subject $\log\left( k_{ic} \right)$ for comparison purposes.
+
+``` r
+# Calculate alternative estimator for subj ln(k)
+group_means <- sim_model$ln_k_mean %>%
+  select(condition, ln_k_mean) %>%
+  rename(group = condition)
+g_hat <- sim_model$var["g"]
+
+n_tp <- length(unique(sim_data$delay))
+
+subj_ln_k_est_comp <- merge(subj_ln_k_comp, group_means) %>%
+  rename(indiv_est_ln_k = ln_k,
+         group_est_ln_k = ln_k_mean)
+
+subj_ln_k_est_comp$reg_est_ln_k <- 
+  (g_hat*subj_ln_k_est_comp$indiv_est_ln_k + 
+     (1/n_tp)*subj_ln_k_est_comp$group_est_ln_k)/
+  (g_hat + 1/n_tp)
+
+# Plot alternative estimator vs true ln(k)
+plot(x = subj_ln_k_est_comp$true_ln_k, y = subj_ln_k_est_comp$reg_est_ln_k,
+     main = "Subject True vs MSE-Optimal Estimated ln(k)",
+     col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", 
+                  ifelse(subj_ln_k_est_comp$group == "HIT", "orange", "skyblue")),
+     xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
+abline(a=0, b=1)
+legend("topleft", 
+       legend = c(
+         "EFT", "HIT", "NCC"),
+       col = c("darkgreen", "orange", "skyblue"), pch = 1)
+```
+
+![Scatterplot showing the true vs estimated log k values for each
+subject, colored by group. The log k estimates are a convex combination
+of the subject parameter and condition hyperparameter maximum likelihood
+estimates chosen to minimize the mean square error of the subject log k
+estimate. The point positions are not visibly different since the
+estimates are nearly identical. The log k values in the E F T condition
+are slightly but noticably smaller on average compared to the H I T and
+N C C conditions. The H I T and N C C conditions are not noticably
+different.](simulate-dataset_files/figure-html/unnamed-chunk-5-1.png)

@@ -16,14 +16,13 @@ prepare_data_frame(dd_data)
 
 - dd_data:
 
-  A data frame containing discounting data in long format. (describe
-  preconditions for the input?) The data should be in long format, with
-  columns identifying the subject, group and time point for each
-  observation, and the indifference point. The variables should be named
-  subj, group, delay, and indiff, respectively. Values for indifference
-  points should be between 0 and 1, exclusive. All delays should be
-  positive. All subjects should have observations for the exact same set
-  of delays.
+  A data frame containing discounting data in long format. The data
+  should be in long format, with columns identifying the subject, group
+  and time point for each observation, and the indifference point. The
+  variables should be named subj, group, delay, and indiff,
+  respectively. Values for indifference points should be between 0 and
+  1, exclusive. All delays should be positive. All subjects should have
+  observations for the exact same set of delays.
 
 ## Value
 

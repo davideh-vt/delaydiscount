@@ -24,6 +24,9 @@
 - [`prepare_data_frame()`](https://davideh-vt.github.io/delaydiscount/reference/prepare_data_frame.md)
   : Prepare a data frame containing discounting for use on the other
   functions in this package.
+- [`simulate_dataset()`](https://davideh-vt.github.io/delaydiscount/reference/simulate_dataset.md)
+  : Simulate a dataset from the hierarchical linearized hyperbolic
+  model.
 
 ## Datasets
 
