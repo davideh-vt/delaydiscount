@@ -16,7 +16,6 @@
 #' @importFrom rlang .data
 #'
 #' @param dd_data A data frame containing discounting data in long format.
-#' (describe preconditions for the input?)
 #' The data should be in long format, with columns identifying the subject,
 #' group and time point for each observation, and the indifference point.
 #' The variables should be named subj, group, delay, and indiff, respectively.
