@@ -131,12 +131,12 @@ subj_ln_k_est_comp$reg_est_ln_k <-
 
 # Plot alternative estimator vs true ln(k)
 plot(x = subj_ln_k_est_comp$true_ln_k, y = subj_ln_k_est_comp$reg_est_ln_k,
-     col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", "orange"),
+     col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", 
+                  ifelse(subj_ln_k_est_comp$group == "HIT", "orange", "skyblue")),
      xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
 abline(a=0, b=1)
 legend("topleft", 
        legend = c(
-         "EFT",
-         "NCC"),
-       col = c("darkgreen", "orange"), pch = 1)
+         "EFT", "HIT", "NCC"),
+       col = c("darkgreen", "orange", "skyblue"), pch = 1)
 ```
