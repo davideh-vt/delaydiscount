@@ -20,6 +20,11 @@ Each value represents the population ln_k mean for that condition.}
 
 \item{sigma_sq}{The variance of an observed indifference points's transformed
 value, conditional on the variance.}
+
+\item{g}{Parameter controlling the variance of individual subject ln k parameters.
+Equal to Var(ln_k)*(Number of time points)/sigma_sq, that is, the ratio of the
+variance of a subject ln k parameter to the variance of the estimate of a
+subject ln k parameter (conditional on the true ln k parameter).}
 }
 \value{
 A data frame of simulated delay discounting data containing one observation

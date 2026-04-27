@@ -9,6 +9,11 @@
 #'  Each value represents the population ln_k mean for that condition.
 #' @param sigma_sq The variance of an observed indifference points's transformed
 #'  value, conditional on the variance.
+#' @param g Parameter controlling the variance of individual subject ln k parameters.
+#' Equal to Var(ln_k)*(Number of time points)/sigma_sq, that is, the ratio of the
+#' variance of a subject ln k parameter to the variance of the estimate of a
+#' subject ln k parameter (conditional on the true ln k parameter).
+#'
 #' @returns A data frame of simulated delay discounting data containing one observation
 #'  per delay per subject. It contains the following columns:
 #'  subj: A number identifying the subject
@@ -34,7 +39,22 @@ simulate_dataset <- function(conditions,
                              mean_ln_k,
                              sigma_sq, g){
 
-  # TODO: Add input checks
+  num_subj <- floor(num_subj)
+  if(length(conditions) != length(unique(conditions))){
+    stop("All conditions must be unique.")
+  }
+  if(length(conditions) != length(num_subj)){
+    stop("num_subj must have length equal to the number of conditions.")
+  }
+  if(length(conditions) != length(mean_ln_k)){
+    stop("mean_ln_k must have length equal to the number of conditions.")
+  }
+  if((sum(num_subj) > 0) != length(num_subj)){
+    stop("Numbers of subjects must be positive.")
+  }
+  if(sigma_sq < 0 | g < 0){
+    stop("Variance components sigma_sq and g must not be negative.")
+  }
 
   # Get number of time points
   n_tp <- length(time_points)
