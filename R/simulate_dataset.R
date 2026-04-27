@@ -52,6 +52,9 @@ simulate_dataset <- function(conditions,
   if(sum(num_subj > 0) != length(num_subj)){
     stop("Numbers of subjects must be positive.")
   }
+  if(length(sigma_sq) != 1 | length(g) != 1){
+    stop("Variance components sigma_sq and g must each be length 1.")
+  }
   if(sigma_sq < 0 | g < 0){
     stop("Variance components sigma_sq and g must not be negative.")
   }
