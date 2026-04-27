@@ -1,5 +1,7 @@
 #' Simulate a dataset from the hierarchical linearized hyperbolic model.
-#'
+
+#' @importFrom stats rnorm
+
 #' @param conditions A character vector, with each component naming a condition.
 #' @param num_subj An integer vector the same length as the vector of conditions.
 #' Each entry represents the number of subjects in the respective condition.
