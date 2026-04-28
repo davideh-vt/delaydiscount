@@ -19,7 +19,7 @@ library(delaydiscount)
 library(dplyr)
 ```
 
-The `simulate_dataset` method can be used to simulate data from the hierarchical linearized hyperbolic model.
+The `simulate_dataset` function can be used to simulate data from the hierarchical linearized hyperbolic model.
 
 The hierarchical linearized hyperboloid model works as follows.
 
@@ -58,7 +58,7 @@ The `mean_ln_k` vector gives the condition mean hyperparameters.
 
 The value `sigma_sq` gives the parameter $\sigma^2$, which represents the conditional variance of an observed transformed indifference point $\log(\frac{1}{\tilde D(t_{ijc})} - 1)$ given the subject's $\log(k_{ic})$ parameter.
 
-The value `g` gives the ratio of the variance subject $\log(k_{ic})$ parameter to the conditional variance of the least squares (on the transformed scale) estimator of a subject's $\log(k_{ic})$ parameter given the true $\log(k_{ic})$. The result is that the true $\log(k_{ic})$ parameters have value $\frac{g\sigma^2}{T}$. (Recall $T$ is the length of the `time_points` vector.)
+The value `g` gives the ratio of the variance subject $\log(k_{ic})$ parameter to the conditional variance of the least squares (on the transformed scale) estimator of a subject's $\log(k_{ic})$ parameter given the true $\log(k_{ic})$. The result is that the true $\log(k_{ic})$ parameters have variance $\frac{g\sigma^2}{T}$. (Recall $T$ is the length of the `time_points` vector.)
 
 The data frame output by `sim_data` can be analyzed using our analysis methods. In particular, `prepare_data_frame` and `jb_rule_check` are ready to be run on the data frame. However, `dd_hyperbolic_model` and `get_subj_est_ln_k` will still need to be run on the output from `prepare_data_frame`.
 
@@ -116,47 +116,4 @@ legend("topleft",
          "Passes rule check",
          "Fails rule check"),
        col = c("green", "blue"), pch = 1)
-```
-
-However, the data could be used to calculate other estimators of the subject $\log(k_{ic})$ for comparison purposes.
-
-```{r}
-#| fig.alt: >
-#|   Scatterplot showing the true vs estimated log k values for each subject,
-#|   colored by group. The log k estimates are a convex combination of the 
-#|   subject parameter and condition hyperparameter maximum likelihood estimates
-#|   chosen to minimize the mean square error of the subject log k estimate.
-#|   The point positions are not visibly different since the estimates are
-#|   nearly identical. The log k values in the E F T condition are slightly but
-#|   noticably smaller on average compared to the H I T and N C C conditions. 
-#|   The H I T and N C C conditions are not noticably different.
-
-# Calculate alternative estimator for subj ln(k)
-group_means <- sim_model$ln_k_mean %>%
-  select(condition, ln_k_mean) %>%
-  rename(group = condition)
-g_hat <- sim_model$var["g"]
-
-n_tp <- length(unique(sim_data$delay))
-
-subj_ln_k_est_comp <- merge(subj_ln_k_comp, group_means) %>%
-  rename(indiv_est_ln_k = ln_k,
-         group_est_ln_k = ln_k_mean)
-
-subj_ln_k_est_comp$reg_est_ln_k <- 
-  (g_hat*subj_ln_k_est_comp$indiv_est_ln_k + 
-     (1/n_tp)*subj_ln_k_est_comp$group_est_ln_k)/
-  (g_hat + 1/n_tp)
-
-# Plot alternative estimator vs true ln(k)
-plot(x = subj_ln_k_est_comp$true_ln_k, y = subj_ln_k_est_comp$reg_est_ln_k,
-     main = "Subject True vs MSE-Optimal Estimated ln(k)",
-     col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", 
-                  ifelse(subj_ln_k_est_comp$group == "HIT", "orange", "skyblue")),
-     xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
-abline(a=0, b=1)
-legend("topleft", 
-       legend = c(
-         "EFT", "HIT", "NCC"),
-       col = c("darkgreen", "orange", "skyblue"), pch = 1)
 ```
