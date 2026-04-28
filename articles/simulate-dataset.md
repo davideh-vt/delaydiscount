@@ -13,7 +13,7 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 ```
 
-The `simulate_dataset` method can be used to simulate data from the
+The `simulate_dataset` function can be used to simulate data from the
 hierarchical linearized hyperbolic model.
 
 The hierarchical linearized hyperboloid model works as follows.
@@ -80,7 +80,7 @@ $\log\left( k_{ic} \right)$ parameter to the conditional variance of the
 least squares (on the transformed scale) estimator of a subject’s
 $\log\left( k_{ic} \right)$ parameter given the true
 $\log\left( k_{ic} \right)$. The result is that the true
-$\log\left( k_{ic} \right)$ parameters have value
+$\log\left( k_{ic} \right)$ parameters have variance
 $\frac{g\sigma^{2}}{T}$. (Recall $T$ is the length of the `time_points`
 vector.)
 
@@ -158,47 +158,3 @@ true log k, and the plotted points scatter around that line, since the
 estimator is unbiased. The true log k values of the rule check failures
 tend to vary more than the true log k values of the rule check
 passers.](simulate-dataset_files/figure-html/unnamed-chunk-4-1.png)
-
-However, the data could be used to calculate other estimators of the
-subject $\log\left( k_{ic} \right)$ for comparison purposes.
-
-``` r
-# Calculate alternative estimator for subj ln(k)
-group_means <- sim_model$ln_k_mean %>%
-  select(condition, ln_k_mean) %>%
-  rename(group = condition)
-g_hat <- sim_model$var["g"]
-
-n_tp <- length(unique(sim_data$delay))
-
-subj_ln_k_est_comp <- merge(subj_ln_k_comp, group_means) %>%
-  rename(indiv_est_ln_k = ln_k,
-         group_est_ln_k = ln_k_mean)
-
-subj_ln_k_est_comp$reg_est_ln_k <- 
-  (g_hat*subj_ln_k_est_comp$indiv_est_ln_k + 
-     (1/n_tp)*subj_ln_k_est_comp$group_est_ln_k)/
-  (g_hat + 1/n_tp)
-
-# Plot alternative estimator vs true ln(k)
-plot(x = subj_ln_k_est_comp$true_ln_k, y = subj_ln_k_est_comp$reg_est_ln_k,
-     main = "Subject True vs MSE-Optimal Estimated ln(k)",
-     col = ifelse(subj_ln_k_est_comp$group == "EFT", "darkgreen", 
-                  ifelse(subj_ln_k_est_comp$group == "HIT", "orange", "skyblue")),
-     xlab = "True subject ln(k)", ylab = "Estimated subject ln(k)")
-abline(a=0, b=1)
-legend("topleft", 
-       legend = c(
-         "EFT", "HIT", "NCC"),
-       col = c("darkgreen", "orange", "skyblue"), pch = 1)
-```
-
-![Scatterplot showing the true vs estimated log k values for each
-subject, colored by group. The log k estimates are a convex combination
-of the subject parameter and condition hyperparameter maximum likelihood
-estimates chosen to minimize the mean square error of the subject log k
-estimate. The point positions are not visibly different since the
-estimates are nearly identical. The log k values in the E F T condition
-are slightly but noticably smaller on average compared to the H I T and
-N C C conditions. The H I T and N C C conditions are not noticably
-different.](simulate-dataset_files/figure-html/unnamed-chunk-5-1.png)
