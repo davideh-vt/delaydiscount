@@ -15,6 +15,14 @@
 #'  conditioned on the true ln(k) for the subject
 #'  g is related to the variance of the subject random effect, which is equal to
 #'  g*sigma_sq/T, where T is the number of time points.
+#' pairwise_f_tests is a data frame containing the results of all of the pairwise
+#'  f-tests for equality of hyperparameters. The columns col1 and col2 contain
+#'  the groups of the pairwise F-test. The F_stat column contains the F-statistic,
+#'  the p_value column contains the p-value, and the df1 and df2 columns contain
+#'  the numerator and denominator degrees of freedom, respectively.
+#' model_test is a data frame containing the result of the F-test for equality
+#'  of all hyperparameters. It contains the columns F_stat, p_value, df1, and df2,
+#'  which have the same meaning as in the pairwise_f_tests data frame.
 #'
 #' @examples
 #' prep_remedi <- prepare_data_frame(remedi)
@@ -40,12 +48,10 @@ dd_hyperbolic_model <- function(dd_data){
     # same if there is only one subject in each group
     return(fixed_effects_var_ests)
   }
-  # f-test results should be in a dataframe
   n_groups <- length(groups)
   num_tests <- n_groups*(n_groups-1)/2
-  # cond_1 <- rep(groups, each = (n_groups-1):0)
-  cond_1 <- rep("", each = num_tests)
-  cond_2 <- rep("", each = num_tests)
+  group_1 <- rep("", each = num_tests)
+  group_2 <- rep("", each = num_tests)
   F_stat <- rep(-1, each = num_tests)
   p_value <- rep(-1, each = num_tests)
   df1 <- rep(-1, each = num_tests)
@@ -54,8 +60,8 @@ dd_hyperbolic_model <- function(dd_data){
   test_ct <- 1
   for(i in 1:(length(groups)-1)){
     for(j in (i+1):length(groups)){
-      cond_1[test_ct] <- groups[i]
-      cond_2[test_ct] <- groups[j]
+      group_1[test_ct] <- groups[i]
+      group_2[test_ct] <- groups[j]
 
       hyp = list(groups[c(i,j)])
       f_test = hyperbolic_model_f_test(dd_data, hyp)
@@ -69,7 +75,7 @@ dd_hyperbolic_model <- function(dd_data){
     }
   }
 
-  pairwise_f_tests <- data.frame(cond_1, cond_2, F_stat, p_value, df1, df2)
+  pairwise_f_tests <- data.frame(group_1, group_2, F_stat, p_value, df1, df2)
 
   #basic anova (all equal to each other)
   f_test = hyperbolic_model_f_test(dd_data, list(groups))

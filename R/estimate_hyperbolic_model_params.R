@@ -22,14 +22,6 @@
 #'  conditioned on the true ln(k) for the subject
 #'  g is related to the variance of the subject random effect, which is equal to
 #'  g*sigma_sq/T, where T is the number of time points.
-#' pairwise_f_tests is a data frame containing the results of all of the pairwise
-#'  f-tests for equality of hyperparameters. The columns col1 and col2 contain
-#'  the groups of the pairwise F-test. The F_stat column contains the F-statistic,
-#'  the p_value column contains the p-value, and the df1 and df2 columns contain
-#'  the numerator and denominator degrees of freedom, respectively.
-#' model_test is a data frame containing the result of the F-test for equality
-#'  of all hyperparameters. It contains the columns F_stat, p_value, df1, and df2,
-#'  which have the same meaning as in the pairwise_f_tests data frame.
 #'
 #' @examples
 #' prep_remedi <- prepare_data_frame(remedi)
@@ -93,7 +85,7 @@ estimate_hyperbolic_model_params <- function(dd_data){
   std_errs <- sqrt((g_hat+1)*sigma_sq/(grp_ct$count*n_tp))
   names(std_errs) <- grp_ct$group
 
-  condition_stats <- data.frame(condition = groups, ln_k_mean = ln_k_means[groups], std_err = std_errs[groups])
+  group_stats <- data.frame(group = groups, ln_k_mean = ln_k_means[groups], std_err = std_errs[groups])
 
-  return(list(ln_k_mean = condition_stats, var = vars))
+  return(list(ln_k_mean = group_stats, var = vars))
 }

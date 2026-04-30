@@ -1,5 +1,5 @@
 test_that("dataframe structure is correct", {
-  dd_data <- simulate_dataset(conditions = c("EFT", "NCC"),
+  dd_data <- simulate_dataset(groups = c("EFT", "NCC"),
                               num_subj = c(75, 150),
                               time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                               mean_ln_k = c(-6.7, -6),
@@ -16,7 +16,7 @@ test_that("dataframe structure is correct", {
 
 test_that("simulation works as expected", {
   set.seed(23)
-  dd_data <- simulate_dataset(conditions = c("EFT", "NCC"),
+  dd_data <- simulate_dataset(groups = c("EFT", "NCC"),
                               num_subj = c(75, 150),
                               time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                               mean_ln_k = c(-6.7, -6),
@@ -41,7 +41,7 @@ test_that("simulation works as expected", {
 
 test_that("condition order need not be alphabetical", {
   set.seed(27)
-  dd_data <- simulate_dataset(conditions = c("NCC", "EFT"),
+  dd_data <- simulate_dataset(groups = c("NCC", "EFT"),
                               num_subj = c(120, 80),
                               time_points = c(30, 90, 180, 365, 1095, 1825),
                               mean_ln_k = c(-5.4, -6.2),
@@ -73,70 +73,70 @@ test_that("condition order need not be alphabetical", {
 })
 
 test_that("errors are given when appropriate", {
-  expect_error(simulate_dataset(conditions = c("EFT", "EFT"),
+  expect_error(simulate_dataset(groups = c("EFT", "EFT"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = 1.5, g = 10),
-               "All conditions must be unique.")
+               "All groups must be unique.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC", "HIT"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC", "HIT"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = 1.5, g = 10),
-               "num_subj must have length equal to the number of conditions.")
+               "num_subj must have length equal to the number of groups.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6, -6.21),
                                 sigma_sq = 1.5, g = 10),
-               "mean_ln_k must have length equal to the number of conditions.")
+               "mean_ln_k must have length equal to the number of groups.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(0, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = 1.5, g = 10),
                "Numbers of subjects must be positive.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, -150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = 1.5, g = 10),
                "Numbers of subjects must be positive.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = c(1, 2), g = 10),
                "Variance components sigma_sq and g must each be length 1.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = 1.5, g = 9:10),
                "Variance components sigma_sq and g must each be length 1.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = -1.5, g = 10),
                "Variance components sigma_sq and g must not be negative.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
                                 sigma_sq = 1.5, g = -10),
                "Variance components sigma_sq and g must not be negative.")
 
-  expect_error(simulate_dataset(conditions = c("EFT", "NCC"),
+  expect_error(simulate_dataset(groups = c("EFT", "NCC"),
                                 num_subj = c(75, 150),
                                 time_points = c(30, 90, 180, 365, 1095, 1825, 3650),
                                 mean_ln_k = c(-6.7, -6),
