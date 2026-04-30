@@ -4,7 +4,7 @@ This includes: Reducing the data frame to only contain the expected
 variables. Sorting the observations into an expected order. Transforming
 delay and indifference for the linearized model. Estimating ln(k) for
 each subject. Calculating residuals from observed values vs predictions
-by estimated ln(k)
+by estimated ln(k).
 
 ## Usage
 
@@ -32,5 +32,4 @@ A data frame compatible with the other functions in this package.
 
 ``` r
 prep_remedi <- prepare_data_frame(remedi)
-
 ```

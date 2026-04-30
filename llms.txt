@@ -52,12 +52,12 @@ fit$var
   : Estimate the hyperparameters for each group, as well as the variance
   components of the model, using maximum likelihood estimation.
 - [`get_subj_est_ln_k()`](https://davideh-vt.github.io/delaydiscount/reference/get_subj_est_ln_k.md)
-  : Return ln(k) estimates for each subject
+  : Return ln(k) estimates for each subject.
 - [`hyperbolic_model_f_test()`](https://davideh-vt.github.io/delaydiscount/reference/hyperbolic_model_f_test.md)
   : Perform an F-test for equality of some combination(s) of
   hyperparameters.
 - [`jb_rule_check()`](https://davideh-vt.github.io/delaydiscount/reference/jb_rule_check.md)
-  : Apply rule checks to each subject.
+  : Apply Johnson-Bickel rule checks to each subject.
 - [`prepare_data_frame()`](https://davideh-vt.github.io/delaydiscount/reference/prepare_data_frame.md)
   : Prepare a data frame containing discounting for use on the other
   functions in this package.

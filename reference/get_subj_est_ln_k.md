@@ -1,6 +1,6 @@
-# Return ln(k) estimates for each subject
+# Return ln(k) estimates for each subject.
 
-Return ln(k) estimates for each subject
+Return ln(k) estimates for each subject.
 
 ## Usage
 
