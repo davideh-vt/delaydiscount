@@ -1,6 +1,7 @@
 # delaydiscount
 
 ``` r
+
 library(delaydiscount)
 ```
 
@@ -39,6 +40,7 @@ We include the remedi dataset in our package as an example of a properly
 formatted dataset.
 
 ``` r
+
 head(remedi, n = 10L)
 #>     study     subj group delay    indiff
 #> 1  REMEDI 44864071   HIT    30 0.7109375
@@ -58,6 +60,7 @@ step is to run the `prepare_data_frame` function on the dataset, which
 performs helper calculations for our other functions.
 
 ``` r
+
 prep_remedi <- prepare_data_frame(remedi)
 ```
 
@@ -65,29 +68,29 @@ One of the things that the `prepare_data_frame` function does is
 transform the delay and indifference variables to linearize the model.
 
 Note that the hyperbolic model for the discounting curve is
-$D(t) = \frac{1}{1 + kt}$.
+$`D(t) = \frac{1}{1+kt}`$.
 
-Then we will have
-$\log\left( \frac{1}{D(t)} - 1 \right) = \log(k) + \log(t)$.
+Then we will have $`\log(\frac{1}{D(t)} - 1) = \log(k) + \log(t)`$.
 
 We assume that the transformed observed indifference point
-$\widetilde{D}\left( t_{ijc} \right)$ will follow the model
+$`\tilde D(t_{ijc})`$ will follow the model
 
-$\log\left( \frac{1}{\widetilde{D}\left( t_{ijc} \right)} - 1 \right) = \log\left( k_{ic} \right) + \log\left( t_{ijc} \right) + \epsilon_{ijc},$
+$`\log(\frac{1}{\tilde D(t_{ijc})} - 1) = \log(k_{ic}) + \log(t_{ijc}) + \epsilon_{ijc},`$
 
-where $\epsilon_{ijc} \sim N\left( 0,\sigma^{2} \right)$, $i$ is an
-index for subject, $j$ an index for time point, and $c$ is an index for
-group, and
+where $`\epsilon_{ijc} \sim N(0, \sigma^2)`$, $`i`$ is an index for
+subject, $`j`$ an index for time point, and $`c`$ is an index for group,
+and
 
-$\log\left( k_{ic} \right) \sim N\left( \theta_{c},\frac{g\sigma^{2}}{T} \right)$,
-where $\theta_{c}$ is the population mean of the
-$\log\left( k_{ic} \right)$ for subjects in group $c$, and $T$ is the
-number of time points observed for each subject.
+$`\log(k_{ic}) \sim N(\theta_c, \frac{g\sigma^2}{T})`$, where
+$`\theta_c`$ is the population mean of the $`\log(k_{ic})`$ for subjects
+in group $`c`$, and $`T`$ is the number of time points observed for each
+subject.
 
-Using the prepared data frame, you can get estimates of the $log(k)$
+Using the prepared data frame, you can get estimates of the $`log(k)`$
 values for each subject using the `get_subj_est_ln_k` function.
 
 ``` r
+
 ln_k_ests <- get_subj_est_ln_k(prep_remedi)
 head(ln_k_ests)
 #> # A tibble: 6 × 3
@@ -102,37 +105,39 @@ head(ln_k_ests)
 #> 6 EFT   12691633 -10.4
 ```
 
-Our model treats the $\log(k)$ values for individual subjects as the
+Our model treats the $`\log(k)`$ values for individual subjects as the
 result of a combination of a fixed group effect and a random subject
 effect. To get the fit of the linearized hyperbolic model, use the
 `dd_hyperbolic_model` function.
 
 ``` r
+
 model_fit <- dd_hyperbolic_model(prep_remedi)
 ```
 
 The object produced by this method is a list containing several
 components.
 
-The group mean $\log(k)$ estimates (i.e. the $\theta_{c}$) can be gotten
-from the `ln_k_mean` component.
+The group mean $`\log(k)`$ estimates (i.e. the $`\theta_c`$) can be
+gotten from the `ln_k_mean` component.
 
 ``` r
+
 model_fit$ln_k_mean
-#>     condition ln_k_mean   std_err
-#> EFT       EFT -6.877057 0.1638994
-#> HIT       HIT -5.860534 0.1506689
-#> NCC       NCC -6.078229 0.1369001
+#>     group ln_k_mean   std_err
+#> EFT   EFT -6.877057 0.1638994
+#> HIT   HIT -5.860534 0.1506689
+#> NCC   NCC -6.078229 0.1369001
 ```
 
 These are estimates of the mean of the distribution from which the
-$\log\left( k_{ic} \right)$ values for subjects in group $c$ have been
-realized.
+$`\log(k_{ic})`$ values for subjects in group $`c`$ have been realized.
 
 The variance component estimates can be obtained from the `var`
 component.
 
 ``` r
+
 model_fit$var
 #>  sigma_sq         g 
 #>  1.978107 10.407330
@@ -143,8 +148,8 @@ indifference value conditional on the subject effect.
 
 `g` is related to the variance of the subject random effects:
 specifically, the variance of the subject random effect is equal to
-$\frac{g\sigma^{2}}{T}$, where $T$ is the number of time points observed
-for each subject.
+$`\frac{g\sigma^2}{T}`$, where $`T`$ is the number of time points
+observed for each subject.
 
 These mean and variance parameters are estimated through maximum
 likelihood estimation.
@@ -153,6 +158,7 @@ An overall F-test for the equality of all group mean parameters can be
 found in the `model_test` component.
 
 ``` r
+
 model_fit$model_test
 #>     F_stat      p_value df1 df2
 #> 1 11.33482 1.593828e-05   2 431
@@ -163,11 +169,12 @@ from the `pairwise_f_tests` component. The data frame contains an F-test
 for each pair.
 
 ``` r
+
 model_fit$pairwise_f_tests
-#>   cond_1 cond_2    F_stat      p_value df1 df2
-#> 1    EFT    HIT 20.704017 6.979837e-06   1 431
-#> 2    EFT    NCC 13.895842 2.189874e-04   1 431
-#> 3    HIT    NCC  1.135632 2.871738e-01   1 431
+#>   group_1 group_2    F_stat      p_value df1 df2
+#> 1     EFT     HIT 20.704017 6.979837e-06   1 431
+#> 2     EFT     NCC 13.895842 2.189874e-04   1 431
+#> 3     HIT     NCC  1.135632 2.871738e-01   1 431
 ```
 
 Note that, as with other R functions such as `lm` and `glm`, these

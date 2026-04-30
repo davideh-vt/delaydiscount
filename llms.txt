@@ -8,6 +8,7 @@ analyzing delay discounting data using the linearized hyperbolic model.
 You can install the development version of delaydiscount from Github.
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_git("https://github.com/davideh-vt/delaydiscount")
 ```
@@ -19,6 +20,7 @@ To fit a model on a dataset of delay discounting data, first run
 the output.
 
 ``` r
+
 library(delaydiscount)
 ## basic example of fitting a model
 prep_remedi <- prepare_data_frame(remedi)

@@ -118,33 +118,33 @@ dataset, which performs helper calculations for our other functions.</p>
 does is transform the delay and indifference variables to linearize the
 model.</p>
 <p>Note that the hyperbolic model for the discounting curve is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mi>k</mi><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">D(t) = \frac{1}{1+kt}</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mi>k</mi><mi>t</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">D(t) = \frac{1}{1+kt}</annotation></semantics></math>.</p>
 <p>Then we will have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mrow><mi>D</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>t</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(\frac{1}{D(t)} - 1) = \log(k) + \log(t)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mfrac><mn>1</mn><mrow><mi>D</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(\frac{1}{D(t)} - 1) = \log(k) + \log(t)</annotation></semantics></math>.</p>
 <p>We assume that the transformed observed indifference point
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>D</mi><mo accent="true">̃</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\tilde D(t_{ijc})</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>D</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\tilde D(t_{ijc})</annotation></semantics></math>
 will follow the model</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mrow><mover><mi>D</mi><mo accent="true">̃</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow></mfrac><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>ϵ</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\log(\frac{1}{\tilde D(t_{ijc})} - 1) = \log(k_{ic}) + \log(t_{ijc}) + \epsilon_{ijc},</annotation></semantics></math></p>
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mfrac><mn>1</mn><mrow><mover><mi>D</mi><mo accent="true">̃</mo></mover><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>t</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>ϵ</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo>,</mo></mrow><annotation encoding="application/x-tex">\log(\frac{1}{\tilde D(t_{ijc})} - 1) = \log(k_{ic}) + \log(t_{ijc}) + \epsilon_{ijc},</annotation></semantics></math></p>
 <p>where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϵ</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\epsilon_{ijc} \sim N(0, \sigma^2)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϵ</mi><mrow><mi>i</mi><mi>j</mi><mi>c</mi></mrow></msub><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\epsilon_{ijc} \sim N(0, \sigma^2)</annotation></semantics></math>,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
 is an index for subject,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
 an index for time point, and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
 is an index for group, and</p>
-<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>∼</mo><mi>N</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>θ</mi><mi>c</mi></msub><mo>,</mo><mfrac><mrow><mi>g</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><mi>T</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(k_{ic}) \sim N(\theta_c, \frac{g\sigma^2}{T})</annotation></semantics></math>,
+<p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo><mo>∼</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>θ</mi><mi>c</mi></msub><mo>,</mo><mfrac><mrow><mi>g</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><mi>T</mi></mfrac><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(k_{ic}) \sim N(\theta_c, \frac{g\sigma^2}{T})</annotation></semantics></math>,
 where
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\theta_c</annotation></semantics></math>
 is the population mean of the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(k_{ic})</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(k_{ic})</annotation></semantics></math>
 for subjects in group
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
 is the number of time points observed for each subject.</p>
 <p>Using the prepared data frame, you can get estimates of the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">log(k)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">log(k)</annotation></semantics></math>
 values for each subject using the <code>get_subj_est_ln_k</code>
 function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -161,7 +161,7 @@ function.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> EFT   12<span style="text-decoration: underline;">088</span>534  -<span style="color: #BB0000;">8.41</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> EFT   12<span style="text-decoration: underline;">691</span>633 -<span style="color: #BB0000;">10.4</span></span></span></code></pre></div>
 <p>Our model treats the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(k)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(k)</annotation></semantics></math>
 values for individual subjects as the result of a combination of a fixed
 group effect and a random subject effect. To get the fit of the
 linearized hyperbolic model, use the <code>dd_hyperbolic_model</code>
@@ -171,18 +171,18 @@ function.</p>
 <p>The object produced by this method is a list containing several
 components.</p>
 <p>The group mean
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(k)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(k)</annotation></semantics></math>
 estimates (i.e. the
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\theta_c</annotation></semantics></math>)
 can be gotten from the <code>ln_k_mean</code> component.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_fit</span><span class="op">$</span><span class="va">ln_k_mean</span></span>
-<span><span class="co">#&gt;     condition ln_k_mean   std_err</span></span>
-<span><span class="co">#&gt; EFT       EFT -6.877057 0.1638994</span></span>
-<span><span class="co">#&gt; HIT       HIT -5.860534 0.1506689</span></span>
-<span><span class="co">#&gt; NCC       NCC -6.078229 0.1369001</span></span></code></pre></div>
+<span><span class="co">#&gt;     group ln_k_mean   std_err</span></span>
+<span><span class="co">#&gt; EFT   EFT -6.877057 0.1638994</span></span>
+<span><span class="co">#&gt; HIT   HIT -5.860534 0.1506689</span></span>
+<span><span class="co">#&gt; NCC   NCC -6.078229 0.1369001</span></span></code></pre></div>
 <p>These are estimates of the mean of the distribution from which the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\log(k_{ic})</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">log</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>k</mi><mrow><mi>i</mi><mi>c</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\log(k_{ic})</annotation></semantics></math>
 values for subjects in group
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>
 have been realized.</p>
@@ -214,10 +214,10 @@ obtained from the <code>pairwise_f_tests</code> component. The data
 frame contains an F-test for each pair.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model_fit</span><span class="op">$</span><span class="va">pairwise_f_tests</span></span>
-<span><span class="co">#&gt;   cond_1 cond_2    F_stat      p_value df1 df2</span></span>
-<span><span class="co">#&gt; 1    EFT    HIT 20.704017 6.979837e-06   1 431</span></span>
-<span><span class="co">#&gt; 2    EFT    NCC 13.895842 2.189874e-04   1 431</span></span>
-<span><span class="co">#&gt; 3    HIT    NCC  1.135632 2.871738e-01   1 431</span></span></code></pre></div>
+<span><span class="co">#&gt;   group_1 group_2    F_stat      p_value df1 df2</span></span>
+<span><span class="co">#&gt; 1     EFT     HIT 20.704017 6.979837e-06   1 431</span></span>
+<span><span class="co">#&gt; 2     EFT     NCC 13.895842 2.189874e-04   1 431</span></span>
+<span><span class="co">#&gt; 3     HIT     NCC  1.135632 2.871738e-01   1 431</span></span></code></pre></div>
 <p>Note that, as with other R functions such as <code>lm</code> and
 <code>glm</code>, these p-values are not adjusted for multiplicity.</p>
 <div class="section level2">
