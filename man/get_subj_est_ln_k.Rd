@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_subj_est_ln_k.R
 \name{get_subj_est_ln_k}
 \alias{get_subj_est_ln_k}
-\title{Return ln(k) estimates for each subject}
+\title{Return ln(k) estimates for each subject.}
 \usage{
 get_subj_est_ln_k(dd_data)
 }
@@ -15,7 +15,7 @@ A data frame consisting of one observation per subject within group
 with the variable ln_k containing that subject's estimated ln_k value.
 }
 \description{
-Return ln(k) estimates for each subject
+Return ln(k) estimates for each subject.
 }
 \examples{
 prep_remedi <- prepare_data_frame(remedi)

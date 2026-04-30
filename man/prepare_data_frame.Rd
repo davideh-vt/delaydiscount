@@ -25,10 +25,9 @@ Reducing the data frame to only contain the expected variables.
 Sorting the observations into an expected order.
 Transforming delay and indifference for the linearized model.
 Estimating ln(k) for each subject.
-Calculating residuals from observed values vs predictions by estimated ln(k)
+Calculating residuals from observed values vs predictions by estimated ln(k).
 }
 \examples{
 prep_remedi <- prepare_data_frame(remedi)
-
 
 }

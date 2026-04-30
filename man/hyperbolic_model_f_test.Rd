@@ -16,10 +16,10 @@ of hyperparameters that are assumed to be equal under the null hypothesis.}
 }
 \value{
 A list with the entries
-F_stat, the test statistic of the F-test,
-p_value, the p-value of the F-test
-df1, the numerator degrees of freedom of the F-test (dimensionality of H0)
-df2, the denominator degrees of freedom of the F-test
+F_stat, the test statistic of the F-test;
+p_value, the p-value of the F-test;
+df1, the numerator degrees of freedom of the F-test (dimensionality of H0);
+df2, the denominator degrees of freedom of the F-test.
 }
 \description{
 This function is a helper function for dd_hyperbolic_model.

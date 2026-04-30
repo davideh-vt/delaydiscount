@@ -18,9 +18,9 @@
 #'
 #' @returns A data frame of simulated delay discounting data containing one observation
 #'  per delay per subject. It contains the following columns:
-#'  subj: A number identifying the subject
-#'  true_ln_k: The true ln_k parameter of that subject
-#'  group: The subject's group
+#'  subj: A number identifying the subject.
+#'  true_ln_k: The true ln_k parameter of that subject.
+#'  group: The subject's group.
 #'  delay: The delay for the observation.
 #'  indiff: The indifference point for the subject at the delay the observation
 #'  corresponds to, between 0 and 1, representing the proportion of the reward
@@ -41,6 +41,7 @@ simulate_dataset <- function(groups,
                              mean_ln_k,
                              sigma_sq, g){
 
+  # Check that the input is valid
   num_subj <- floor(num_subj)
   if(length(groups) != length(unique(groups))){
     stop("All groups must be unique.")

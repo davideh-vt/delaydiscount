@@ -10,7 +10,7 @@
 #' ln_k_mean is a data frame with estimates of the hyperparameters of each group
 #' along with the standard error of the estimate. The hyperparameter for each
 #' group can be interpreted as the mean ln(k) for a subject in that group.
-#' var is a vector with entries sigma_sq and g
+#' var is a vector with entries sigma_sq and g.
 #'  sigma_sq is the variance of the observed transformed indifference
 #'  conditioned on the true ln(k) for the subject
 #'  g is related to the variance of the subject random effect, which is equal to
@@ -77,7 +77,7 @@ dd_hyperbolic_model <- function(dd_data){
 
   pairwise_f_tests <- data.frame(group_1, group_2, F_stat, p_value, df1, df2)
 
-  #basic anova (all equal to each other)
+  # basic anova (all equal to each other)
   f_test = hyperbolic_model_f_test(dd_data, list(groups))
 
   result = fixed_effects_var_ests

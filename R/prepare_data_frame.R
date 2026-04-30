@@ -6,7 +6,7 @@
 #' Sorting the observations into an expected order.
 #' Transforming delay and indifference for the linearized model.
 #' Estimating ln(k) for each subject.
-#' Calculating residuals from observed values vs predictions by estimated ln(k)
+#' Calculating residuals from observed values vs predictions by estimated ln(k).
 #'
 #' @importFrom dplyr select
 #' @importFrom dplyr arrange
@@ -28,7 +28,6 @@
 #' @examples
 #' prep_remedi <- prepare_data_frame(remedi)
 #'
-#'
 #' @export
 
 
@@ -49,7 +48,6 @@ prepare_data_frame <- function(dd_data){
   dd_data$hyp_left <- dd_data$indiff_transform - dd_data$log_delay
 
   # calculate est ln_k by subj
-  # make sure this works
   est_ln_k <- dd_data %>%
     dplyr::group_by(.data$group, .data$subj) %>%
     dplyr::summarise(lin_ln_k = mean(.data$hyp_left))

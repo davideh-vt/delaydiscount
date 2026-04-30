@@ -13,10 +13,10 @@
 #' group. No group appears in more than one vector. Each vector represents a set
 #' of hyperparameters that are assumed to be equal under the null hypothesis.
 #' @returns A list with the entries
-#' F_stat, the test statistic of the F-test,
-#' p_value, the p-value of the F-test
-#' df1, the numerator degrees of freedom of the F-test (dimensionality of H0)
-#' df2, the denominator degrees of freedom of the F-test
+#' F_stat, the test statistic of the F-test;
+#' p_value, the p-value of the F-test;
+#' df1, the numerator degrees of freedom of the F-test (dimensionality of H0);
+#' df2, the denominator degrees of freedom of the F-test.
 #'
 #' @examples
 #' prep_remedi <- prepare_data_frame(remedi)
@@ -26,17 +26,19 @@
 
 
 hyperbolic_model_f_test <- function(dd_data, hypothesis){
-  # Add a check to make sure that a group does not appear in more than one vector
-  red_groups = dd_data$group
+  # assign all subjects within groups assumed to be equal to each other to the
+  #  same group level in the reduced model
+  red_groups <- dd_data$group
   for(eq in hypothesis){
-    red_groups = ifelse(red_groups %in% eq, eq[1], red_groups)
+    red_groups <- ifelse(red_groups %in% eq, eq[1], red_groups)
   }
-  dd_data$red_group = red_groups
-  # Now get a model for full groups
+  dd_data$red_group <- red_groups
+
+  # fit the full model
   group_full_model <- lm(indiff_transform ~ offset(log_delay) + group, data = dd_data)
   sse_x_full = sum(residuals(group_full_model)^2)
 
-  # Do the ifelse
+  # fit the reduced model
   if(length(levels(as.factor(dd_data$red_group))) == 1){
     group_red_model <- lm(indiff_transform ~ offset(log_delay), data = dd_data)
   } else{
@@ -44,17 +46,22 @@ hyperbolic_model_f_test <- function(dd_data, hypothesis){
   }
   sse_x_red = sum(residuals(group_red_model)^2)
 
+  # combine group and subject into a single category
   dd_data$group_subj_comb = paste(dd_data$group, dd_data$subj)
 
+  # fit subject(group) model
   subj_model = lm(indiff_transform ~ offset(log_delay) + group_subj_comb, data = dd_data)
   sse_z = sum(residuals(subj_model)^2)
 
+  # compute important quadratic forms
   ssr_full_red = sse_x_red - sse_x_full
   ssr_z_x_full = sse_x_full - sse_z
 
+  # degrees of freedom
   df_1 = group_red_model$df.residual - group_full_model$df.residual
   df_2 = group_full_model$df.residual - subj_model$df.residual
 
+  # mean squares
   msr_full_red = ssr_full_red/df_1
   msr_z_x_full = ssr_z_x_full/df_2
 

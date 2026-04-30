@@ -13,13 +13,13 @@
 #'
 #' @param dd_data A specially formatted data frame as returned by the
 #' prepare_data_frame function.
-#' @returns A list of two objects
+#' @returns A list of two objects:
 #' ln_k_mean is a data frame with estimates of the hyperparameters of each group
 #' along with the standard error of the estimate. The hyperparameter for each
 #' group can be interpreted as the mean ln(k) for a subject in that group.
-#' var is a vector with entries sigma_sq and g
+#' var is a vector with entries sigma_sq and g.
 #'  sigma_sq is the variance of the observed transformed indifference
-#'  conditioned on the true ln(k) for the subject
+#'  conditioned on the true ln(k) for the subject.
 #'  g is related to the variance of the subject random effect, which is equal to
 #'  g*sigma_sq/T, where T is the number of time points.
 #'
@@ -31,8 +31,6 @@
 
 
 estimate_hyperbolic_model_params <- function(dd_data){
-  # Setup input to get it into predictable format
-  #dd_data = prepare_data_frame(dd_data)
   # Get the groups
   dd_data$group <- as.factor(dd_data$group)
   groups <- levels(dd_data$group)

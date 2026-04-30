@@ -1,4 +1,4 @@
-#' Return ln(k) estimates for each subject
+#' Return ln(k) estimates for each subject.
 #'
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise

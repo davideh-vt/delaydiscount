@@ -39,9 +39,6 @@ check_input_preconditions <- function(dd_data){
 
   if(dim(id_df)[1] != dim(dd_data)[1]){
     # This checks to ensure there are no repeat observations
-    # n_gst_obs <- dd_data %>%
-    #   group_by(group, subj, delay) %>%
-    #   summarise(n_obs = n())
     stop("The input data frame must have no more than one observation per time point for each subject within group.")
   }
   n_obs_id = id_df %>%
@@ -61,8 +58,8 @@ check_input_preconditions <- function(dd_data){
     stop("All indifference points must be between 0 and 1, exclusive.")
   }
 
+  # Throw a warning if two groups have subjects with the same ID
   if(length(n_obs_id$subj) != length(unique(n_obs_id$subj))){
     warning("The models in this package assume discounting curves are independent. Subjects appearing in more than one group may violate this assumption.")
   }
-  #  Issue a warning
 }

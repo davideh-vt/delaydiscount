@@ -2,13 +2,12 @@
 % Please edit documentation in R/jb_rule_check.R
 \name{jb_rule_check}
 \alias{jb_rule_check}
-\title{Apply rule checks to each subject.}
+\title{Apply Johnson-Bickel rule checks to each subject.}
 \usage{
 jb_rule_check(dd_data)
 }
 \arguments{
 \item{dd_data}{A data frame containing discounting data in long format.
-(describe preconditions for the input?)
 The data should be in long format, with columns identifying the subject,
 group and time point for each observation, and the indifference point.
 The variables should be named subj, group, delay, and indiff, respectively.
@@ -25,13 +24,12 @@ was passed and FALSE if it was not.
 The rules are:
 \enumerate{
 \item There must be no more than one pair of consecutive time points in which
-the indifference point increases by more than 0.2
+the indifference point increases by more than 0.2.
 \item The indifference point must decrease by at least 0.1 from the earliest
 to the latest time point.
 }
 }
 \examples{
 rule_check_result <- jb_rule_check(remedi)
-
 
 }
