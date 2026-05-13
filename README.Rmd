@@ -22,9 +22,15 @@ The goal of the delaydiscount package is to provide methods for analyzing delay 
 
 ## Installation
 
-You can install the development version of delaydiscount from Github.
+You can install the delaydiscount package from CRAN.
 
-``` {r, message = FALSE}
+```{r, eval = FALSE}
+install.packages("delaydiscount")
+```
+
+Alternatively, you can install the development version of delaydiscount from Github.
+
+``` {r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_git("https://github.com/davideh-vt/delaydiscount")
 ```

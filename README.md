@@ -11,7 +11,14 @@ analyzing delay discounting data using the linearized hyperbolic model.
 
 ## Installation
 
-You can install the development version of delaydiscount from Github.
+You can install the delaydiscount package from CRAN.
+
+``` r
+install.packages("delaydiscount")
+```
+
+Alternatively, you can install the development version of delaydiscount
+from Github.
 
 ``` r
 # install.packages("devtools")
@@ -30,10 +37,10 @@ library(delaydiscount)
 prep_remedi <- prepare_data_frame(remedi)
 fit <- dd_hyperbolic_model(prep_remedi)
 fit$ln_k_mean
-#>     condition ln_k_mean   std_err
-#> EFT       EFT -6.877057 0.1638994
-#> HIT       HIT -5.860534 0.1506689
-#> NCC       NCC -6.078229 0.1369001
+#>     group ln_k_mean   std_err
+#> EFT   EFT -6.877057 0.1638994
+#> HIT   HIT -5.860534 0.1506689
+#> NCC   NCC -6.078229 0.1369001
 fit$var
 #>  sigma_sq         g 
 #>  1.978107 10.407330
